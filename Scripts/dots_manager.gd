@@ -2,6 +2,7 @@ extends Node
 
 @onready var dot_array
 @onready var pattern
+@onready var user_guess = []
 @onready var dot0 = $Dot0
 @onready var dot1 = $Dot1
 @onready var dot2 = $Dot2
@@ -12,6 +13,7 @@ extends Node
 @onready var dot7 = $Dot7
 @onready var dot8 = $Dot8
 var animate = true
+var draw_allowed = false
 @export var gen_length : int = 9
 var curr_length : int = 0
 
@@ -27,6 +29,9 @@ func _ready():
 	dot_array[7]._set_neighbors([dot3, dot4, dot5, dot6, dot8])
 	dot_array[8]._set_neighbors([dot4, dot5, dot7])
 	
+	for dot in dot_array:
+		dot.connect("wrong_pattern", Callable(self,"_reset_to_new_pattern"))
+	
 	#dot_array[2]._draw_to_neighbor(dot_array[4])
 	
 	#_generate_pattern()
@@ -37,7 +42,7 @@ func _process(delta: float) -> void:
 
 	if animate:
 		animate = false
-		for i in range(2):
+		for i in range(1):
 			while curr_length != gen_length:
 				_generate_pattern()
 			var prev_dot = null	
@@ -49,8 +54,13 @@ func _process(delta: float) -> void:
 				dot._activate();
 				await get_tree().create_timer(1.0).timeout
 			_deactivate_all_dots()
+			draw_allowed = true
+			#animate = false
 			curr_length = 0
+	
+	#animate = false
 	#dot_array[6]._activate()
+	
 
 	
 func _generate_pattern():
@@ -108,3 +118,11 @@ func _deactivate_all_dots():
 	for dot in dot_array:
 		dot._deactivate()
 		dot._reset_line()
+		
+func _reset_to_new_pattern():
+	_reset_neighbor_status()
+	_deactivate_all_dots()
+	
+	user_guess.clear()
+	animate = true
+	draw_allowed = false
