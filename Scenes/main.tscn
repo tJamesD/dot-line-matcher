@@ -75,4 +75,5 @@ position = Vector2(821.5, 1300)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Main" parent="." instance=ExtResource("3_8gbba")]
+visible = false
 position = Vector2(257.5, 700)

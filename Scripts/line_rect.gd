@@ -16,5 +16,3 @@ func _process(delta):
 	scale.x = dist / 100.0   # adjust divisor for sensitivity
 	scale.y = 1              # keep y fixed
 	
-func _draw_between_dots(dot1 :Dot, dot2:Dot):
-	pass

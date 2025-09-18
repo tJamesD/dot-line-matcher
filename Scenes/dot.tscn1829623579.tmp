@@ -23,7 +23,6 @@ colors = PackedColorArray(0.601174, 0.291843, 9.62615e-08, 1)
 script = ExtResource("1_wye70")
 
 [node name="Circle" type="Sprite2D" parent="."]
-z_index = 2
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_qtp1d")
 

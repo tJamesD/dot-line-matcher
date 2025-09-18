@@ -7,6 +7,16 @@ var isValid : bool = true
 var neighbors = []
 
 @onready var sprite = $Circle
+#@onready var line = $Line
+@onready var line2dtest = Line2D.new()
+
+
+func _ready():
+	#line.scale = Vector2(1.0/ scale.x, 1.0/scale.y)
+	line2dtest.width = 150
+	line2dtest.z_index = 1
+	line2dtest.default_color = Color.ORANGE
+	
 
 func _on_mouse_entered() -> void:
 	#likely change, will be do other things, method will handled activaiton
@@ -45,3 +55,22 @@ func _isValid():
 
 func _setValid(parm :bool):
 	isValid = parm
+
+func _draw_to_neighbor(dot: Dot):
+	#var dot_pos = dot.global_position
+	#var line_dir =  dot_pos - line.global_position
+	#rotation = line_dir.angle()
+	#var dist = line_dir.length()
+	#
+	#line.scale.x = dist / 15   # adjust divisor for sensitivity
+	line2dtest.points = [to_local(dot.position), to_local(global_position)]
+	
+	#this throws errors and needs fixing.
+	add_child(line2dtest)
+
+#rename to _disable_line
+func _reset_line():
+	line2dtest.visible = false
+
+func _enable_line():
+	line2dtest.visible = true

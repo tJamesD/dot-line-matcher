@@ -27,6 +27,8 @@ func _ready():
 	dot_array[7]._set_neighbors([dot3, dot4, dot5, dot6, dot8])
 	dot_array[8]._set_neighbors([dot4, dot5, dot7])
 	
+	#dot_array[2]._draw_to_neighbor(dot_array[4])
+	
 	#_generate_pattern()
 	#for dot in pattern:
 		#dot._activate()
@@ -35,11 +37,15 @@ func _process(delta: float) -> void:
 
 	if animate:
 		animate = false
-		for i in range(4):
+		for i in range(2):
 			while curr_length != gen_length:
 				_generate_pattern()
-				
+			var prev_dot = null	
 			for dot in pattern:
+				if prev_dot != null:
+					dot._draw_to_neighbor(prev_dot)
+					dot._enable_line()
+				prev_dot = dot
 				dot._activate();
 				await get_tree().create_timer(1.0).timeout
 			_deactivate_all_dots()
@@ -101,3 +107,4 @@ func _reset_neighbor_status():
 func _deactivate_all_dots():
 	for dot in dot_array:
 		dot._deactivate()
+		dot._reset_line()
