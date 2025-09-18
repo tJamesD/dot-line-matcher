@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://btt8t0iqov2lk"]
+[gd_scene load_steps=6 format=3 uid="uid://btt8t0iqov2lk"]
 
 [ext_resource type="Script" uid="uid://dsb0gcdpokhbx" path="res://Scripts/dots_manager.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://ct0creunkhh4g" path="res://Scenes/dot.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://c1pqc135ih2pq" path="res://Scenes/line.tscn" id="3_8gbba"]
 
 [sub_resource type="Gradient" id="Gradient_7u77a"]
 colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
@@ -72,3 +73,6 @@ scale = Vector2(0.184176, 0.184176)
 [node name="Dot8" parent="Dots" instance=ExtResource("1_jjgbg")]
 position = Vector2(821.5, 1300)
 scale = Vector2(0.184176, 0.184176)
+
+[node name="Main" parent="." instance=ExtResource("3_8gbba")]
+position = Vector2(257.5, 700)

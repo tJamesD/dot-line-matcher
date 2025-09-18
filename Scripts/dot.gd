@@ -1,5 +1,7 @@
 extends Area2D
 
+class_name Dot
+
 var activated : bool = false
 var isValid : bool = true
 var neighbors = []

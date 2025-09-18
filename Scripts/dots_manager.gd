@@ -32,6 +32,7 @@ func _ready():
 		#dot._activate()
 
 func _process(delta: float) -> void:
+
 	if animate:
 		animate = false
 		for i in range(4):
