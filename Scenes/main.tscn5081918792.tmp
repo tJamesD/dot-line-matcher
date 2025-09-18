@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=3 uid="uid://btt8t0iqov2lk"]
+
+[ext_resource type="Script" uid="uid://dsb0gcdpokhbx" path="res://Scripts/dots_manager.gd" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://ct0creunkhh4g" path="res://Scenes/dot.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://c1pqc135ih2pq" path="res://Scenes/line.tscn" id="3_8gbba"]
+
+[sub_resource type="Gradient" id="Gradient_7u77a"]
+colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jjgbg"]
+gradient = SubResource("Gradient_7u77a")
+width = 1020
+height = 1080
+fill_to = Vector2(0, 2)
+
+[node name="Main" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BackgroundGradient" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1040.0
+offset_bottom = 1880.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_jjgbg")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Dots" type="Node" parent="."]
+script = ExtResource("1_bo1nx")
+animate = false
+
+[node name="Dot0" parent="Dots" instance=ExtResource("1_jjgbg")]
+position = Vector2(257.5, 700)
+scale = Vector2(0.184176, 0.184176)
+
+[node name="Dot1" parent="Dots" instance=ExtResource("1_jjgbg")]
+position = Vector2(540, 700)
+scale = Vector2(0.184176, 0.184176)
+
+[node name="Dot2" parent="Dots" instance=ExtResource("1_jjgbg")]
+position = Vector2(821.5, 700)
+scale = Vector2(0.184176, 0.184176)
+
+[node name="Dot3" parent="Dots" instance=ExtResource("1_jjgbg")]
+position = Vector2(257.5, 1000)
+scale = Vector2(0.184176, 0.184176)
+
+[node name="Dot4" parent="Dots" instance=ExtResource("1_jjgbg")]
+position = Vector2(540, 1000)
+scale = Vector2(0.184176, 0.184176)
+
+[node name="Dot5" parent="Dots" instance=ExtResource("1_jjgbg")]
+position = Vector2(821.5, 1000)
+scale = Vector2(0.184176, 0.184176)
+
+[node name="Dot6" parent="Dots" instance=ExtResource("1_jjgbg")]
+position = Vector2(257.5, 1300)
+scale = Vector2(0.184176, 0.184176)
+
+[node name="Dot7" parent="Dots" instance=ExtResource("1_jjgbg")]
+position = Vector2(540, 1300)
+scale = Vector2(0.184176, 0.184176)
+
+[node name="Dot8" parent="Dots" instance=ExtResource("1_jjgbg")]
+position = Vector2(821.5, 1300)
+scale = Vector2(0.184176, 0.184176)
+
+[node name="Main" parent="." instance=ExtResource("3_8gbba")]
+visible = false
+position = Vector2(257.5, 700)

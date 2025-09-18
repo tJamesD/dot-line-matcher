@@ -1,23 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ct0creunkhh4g"]
+[gd_scene load_steps=4 format=3 uid="uid://ct0creunkhh4g"]
 
 [ext_resource type="Script" uid="uid://coeiulv8d76t6" path="res://Scripts/dot.gd" id="1_wye70"]
 [ext_resource type="Texture2D" uid="uid://dbsd0l4tvtlkx" path="res://Assets/circle_white.png" id="2_qtp1d"]
 
-[sub_resource type="Gradient" id="Gradient_wye70"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0.65, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qtp1d"]
-gradient = SubResource("Gradient_wye70")
-width = 100
-height = 100
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_wye70"]
 radius = 375.533
-
-[sub_resource type="Gradient" id="Gradient_qtp1d"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.601174, 0.291843, 9.62615e-08, 1)
 
 [node name="Dot" type="Area2D" groups=["Dot"]]
 script = ExtResource("1_wye70")
@@ -27,19 +14,8 @@ z_index = 2
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_qtp1d")
 
-[node name="Line" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_qtp1d")
-offset = Vector2(50, 0)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_wye70")
-
-[node name="Line2D" type="Line2D" parent="."]
-visible = false
-scale = Vector2(50, 50)
-width = 100.0
-default_color = Color(1, 0.283333, 0, 1)
-gradient = SubResource("Gradient_qtp1d")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
