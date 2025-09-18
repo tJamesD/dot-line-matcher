@@ -11,8 +11,8 @@ extends Node
 @onready var dot6 = $Dot6
 @onready var dot7 = $Dot7
 @onready var dot8 = $Dot8
-var animate = true
-@export var gen_length : int = 9
+@export var animate = true
+@export var gen_length : int = 3
 var curr_length : int = 0
 
 func _ready():
@@ -40,17 +40,19 @@ func _process(delta: float) -> void:
 		for i in range(2):
 			while curr_length != gen_length:
 				_generate_pattern()
+			#print(pattern)
 			var prev_dot = null	
 			for dot in pattern:
 				if prev_dot != null:
 					dot._draw_to_neighbor(prev_dot)
-					dot._enable_line()
+					#dot._enable_line()
 				prev_dot = dot
 				dot._activate();
 				await get_tree().create_timer(1.0).timeout
 			_deactivate_all_dots()
 			curr_length = 0
-	#dot_array[6]._activate()
+	#else:
+		
 
 	
 func _generate_pattern():
@@ -85,7 +87,7 @@ func _pick_random_valid_neighbor(neighbor_array):
 	if len(neighbor_array) == 0:
 		return
 	var rand_index : int = randf_range(0, len(neighbor_array))
-	#print("Rand DOT: " + str(rand_index))
+	print("Rand DOT: " + str(rand_index))
 	print("START DOT1: " + neighbor_array[rand_index].name)
 	if neighbor_array[rand_index]._isValid():
 		print("ISVALID: " + neighbor_array[rand_index].name)
