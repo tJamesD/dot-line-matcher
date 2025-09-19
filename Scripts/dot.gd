@@ -7,6 +7,7 @@ var isValid : bool = true
 var neighbors = []
 
 signal wrong_pattern
+signal correct_pattern
 
 @onready var sprite = $Circle
 @onready var dot_manager = get_parent()
@@ -26,7 +27,8 @@ func _on_mouse_entered() -> void:
 	#sprite.modulate = Color(0.89,0.49,0,1)
 	if dot_manager.draw_allowed:
 		_activate()
-		dot_manager.user_guess.append(self)
+		if dot_manager.user_guess.count(self) == 0:
+			dot_manager.user_guess.append(self)
 		_check_solution()
 
 func _check_solution():
@@ -37,7 +39,8 @@ func _check_solution():
 			wrong_pattern.emit()
 			break;
 		index+=1
-			
+	if len(dot_manager.pattern) == len(dot_manager.user_guess):
+		correct_pattern.emit()
 	
 
 func _on_mouse_exited() -> void:

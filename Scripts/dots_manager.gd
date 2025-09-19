@@ -12,6 +12,8 @@ extends Node
 @onready var dot6 = $Dot6
 @onready var dot7 = $Dot7
 @onready var dot8 = $Dot8
+@onready var score = 0
+
 var animate = true
 var draw_allowed = false
 @export var gen_length : int = 9
@@ -31,6 +33,7 @@ func _ready():
 	
 	for dot in dot_array:
 		dot.connect("wrong_pattern", Callable(self,"_reset_to_new_pattern"))
+		dot.connect("correct_pattern", Callable(self,"_increase_score"))
 	
 	#dot_array[2]._draw_to_neighbor(dot_array[4])
 	
@@ -118,6 +121,12 @@ func _deactivate_all_dots():
 	for dot in dot_array:
 		dot._deactivate()
 		dot._reset_line()
+
+func _increase_score():
+	score += 1
+	print(score)
+	_reset_to_new_pattern()
+	
 		
 func _reset_to_new_pattern():
 	_reset_neighbor_status()
