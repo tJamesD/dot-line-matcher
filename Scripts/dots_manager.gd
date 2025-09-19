@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 	
 func _generate_pattern():
 	pattern = []
-	print("Pattern0: " + str(pattern))
+	#print("Pattern0: " + str(pattern))
 	curr_length = 0
 	_reset_neighbor_status()
 	var start_node_index : int = randf_range(0,8)
@@ -77,36 +77,36 @@ func _generate_pattern():
 	print("Pattern1: " + str(pattern))
 	
 	dot_array[start_node_index]._setValid(false)
-	print("Start DOT0: " + str(start_node_index))
+	#print("Start DOT0: " + str(start_node_index))
 	var temp_neighbors = dot_array[start_node_index]._get_valid_neighbors()
-	print("valid Neights of start dot: " + str(temp_neighbors))
-	for i in range(gen_length):
+	#print("valid Neights of start dot: " + str(temp_neighbors))
+	for i in range(gen_length-1):
 		var neighbor = _pick_random_valid_neighbor(temp_neighbors)
-		if neighbor != null:
-			print("next neighbor: " + neighbor.name)
+		#if neighbor != null:
+			##print("next neighbor: " + neighbor.name)
 		if neighbor == null:
 			return
 		pattern.append(neighbor)
 		print("Pattern2: " + str(pattern))
 		curr_length += 1
 		temp_neighbors = neighbor._get_valid_neighbors()
-		print("next Neighbors: " + str(temp_neighbors))
+		#print("next Neighbors: " + str(temp_neighbors))
 
 
 func _pick_random_valid_neighbor(neighbor_array):
-	print("Neighbor_Array: " + str(neighbor_array))
+	#print("Neighbor_Array: " + str(neighbor_array))
 	if len(neighbor_array) == 0:
 		return
 	var rand_index : int = randf_range(0, len(neighbor_array))
 	#print("Rand DOT: " + str(rand_index))
-	print("START DOT1: " + neighbor_array[rand_index].name)
+	#print("START DOT1: " + neighbor_array[rand_index].name)
 	if neighbor_array[rand_index]._isValid():
-		print("ISVALID: " + neighbor_array[rand_index].name)
+		#print("ISVALID: " + neighbor_array[rand_index].name)
 		neighbor_array[rand_index]._setValid(false)
 		return neighbor_array[rand_index]
 
 	while not neighbor_array[rand_index]._isValid():
-		print("ATTEMPT: " + neighbor_array[rand_index].name)
+		#print("ATTEMPT: " + neighbor_array[rand_index].name)
 		rand_index = randf_range(0, len(neighbor_array)-1)
 		
 	neighbor_array[rand_index]._setValid(false)
