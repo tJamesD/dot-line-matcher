@@ -37,7 +37,7 @@ stretch_mode = 4
 
 [node name="Dots" type="Node" parent="."]
 script = ExtResource("1_bo1nx")
-gen_length = 1
+gen_length = 4
 
 [node name="Dot0" parent="Dots" instance=ExtResource("1_jjgbg")]
 position = Vector2(257.5, 700)

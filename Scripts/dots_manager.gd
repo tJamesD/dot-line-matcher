@@ -34,12 +34,20 @@ func _ready():
 	for dot in dot_array:
 		dot.connect("wrong_pattern", Callable(self,"_reset_to_new_pattern"))
 		dot.connect("correct_pattern", Callable(self,"_increase_score"))
+		#dot.connect("current_dot", Callable(self,"_draw_line_to_mouse"))
 	
 	#dot_array[2]._draw_to_neighbor(dot_array[4])
 	
 	#_generate_pattern()
 	#for dot in pattern:
 		#dot._activate()
+
+func _search_mouse_active_dot() -> Dot:
+	for dot in dot_array:
+		if dot.mouse_active_dot:
+			return dot
+	return null
+	
 
 func _process(delta: float) -> void:
 
@@ -58,14 +66,24 @@ func _process(delta: float) -> void:
 				await get_tree().create_timer(1.0).timeout
 			_deactivate_all_dots()
 			draw_allowed = true
-			#animate = false
 			curr_length = 0
-	
-	#animate = false
-	#dot_array[6]._activate()
+	if draw_allowed:
+		_draw_line_to_mouse()
+
+func _draw_line_to_mouse():
+	var dot = _search_mouse_active_dot()
+	#print(dot)
+	if dot != null:
+		print("LINE DOT: " + dot.name)
+		print(dot.position)
+		print(get_viewport().get_mouse_position())
+		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
+		#dot.line_to_mouse.global_position = Vector2.ZERO
+		dot.line_to_mouse.points = [dot.global_position, get_viewport().get_mouse_position()]
+		#dot.line_to_mouse.global_position = Vector2.ZERO
+		#dot.line_to_mouse.points = [dot.position, get_viewport().get_mouse_position()]
 	
 
-	
 func _generate_pattern():
 	pattern = []
 	#print("Pattern0: " + str(pattern))
@@ -74,7 +92,7 @@ func _generate_pattern():
 	var start_node_index : int = randf_range(0,8)
 	pattern.append(dot_array[start_node_index])
 	curr_length += 1
-	print("Pattern1: " + str(pattern))
+	#print("Pattern1: " + str(pattern))
 	
 	dot_array[start_node_index]._setValid(false)
 	#print("Start DOT0: " + str(start_node_index))
@@ -87,10 +105,11 @@ func _generate_pattern():
 		if neighbor == null:
 			return
 		pattern.append(neighbor)
-		print("Pattern2: " + str(pattern))
+		#print("Pattern2: " + str(pattern))
 		curr_length += 1
 		temp_neighbors = neighbor._get_valid_neighbors()
 		#print("next Neighbors: " + str(temp_neighbors))
+	print("PATTERN: " + str(pattern))
 
 
 func _pick_random_valid_neighbor(neighbor_array):

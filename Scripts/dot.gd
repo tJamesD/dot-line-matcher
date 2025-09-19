@@ -9,9 +9,13 @@ var neighbors = []
 signal wrong_pattern
 signal correct_pattern
 
+var mouse_active_dot : bool = false
+#signal current_dot(dot :Dot)
+
 @onready var sprite = $Circle
 @onready var dot_manager = get_parent()
 @onready var line2dtest = Line2D.new()
+@onready var line_to_mouse = Line2D.new()
 
 
 func _ready():
@@ -21,12 +25,19 @@ func _ready():
 	line2dtest.default_color = Color.ORANGE
 	add_child(line2dtest)
 	
+	line_to_mouse.width = 150
+	line_to_mouse.z_index = 1
+	line_to_mouse.default_color = Color.ORANGE
+	add_child(line_to_mouse)
+	
 
 func _on_mouse_entered() -> void:
 	#likely change, will be do other things, method will handled activaiton
 	#sprite.modulate = Color(0.89,0.49,0,1)
 	if dot_manager.draw_allowed:
+		mouse_active_dot = true
 		_activate()
+		#current_dot.emit(self)
 		if dot_manager.user_guess.count(self) == 0:
 			dot_manager.user_guess.append(self)
 		_check_solution()
