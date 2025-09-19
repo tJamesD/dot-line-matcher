@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @onready var dot_array
 @onready var pattern
@@ -79,9 +79,15 @@ func _draw_line_to_mouse():
 		print(get_viewport().get_mouse_position())
 		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
 		#dot.line_to_mouse.global_position = Vector2.ZERO
-		dot.line_to_mouse.points = [dot.global_position, get_viewport().get_mouse_position()]
+		#dot.line_to_mouse.points = [dot.global_position, get_viewport().get_mouse_position()]
 		#dot.line_to_mouse.global_position = Vector2.ZERO
 		#dot.line_to_mouse.points = [dot.position, get_viewport().get_mouse_position()]
+		
+		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
+		#dot.line_to_mouse.points = [dot.global_position, get_global_mouse_position()]
+		var start_local = dot.to_local(dot.global_position) 
+		var end_local   = dot.to_local(get_global_mouse_position())
+		dot.line_to_mouse.points = [start_local, end_local]
 	
 
 func _generate_pattern():
