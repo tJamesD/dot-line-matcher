@@ -8,6 +8,7 @@ var neighbors = []
 
 signal wrong_pattern
 signal correct_pattern
+signal added_to_user_guess
 
 var mouse_active_dot : bool = false
 #signal current_dot(dot :Dot)
@@ -27,7 +28,7 @@ func _ready():
 	
 	line_to_mouse.width = 150
 	line_to_mouse.z_index = 1
-	line_to_mouse.default_color = Color.ORANGE
+	line_to_mouse.default_color = Color.GREEN
 	add_child(line_to_mouse)
 	
 
@@ -41,6 +42,7 @@ func _on_mouse_entered() -> void:
 		if dot_manager.user_guess.count(self) == 0:
 			dot_manager.user_guess.append(self)
 		_check_solution()
+	
 
 func _check_solution():
 	var index : int = 0
@@ -48,11 +50,15 @@ func _check_solution():
 		if dot != dot_manager.pattern[index]:
 			print("Wrong Guess!!!")
 			wrong_pattern.emit()
-			break;
+			return;
 		index+=1
+	
 	if len(dot_manager.pattern) == len(dot_manager.user_guess):
 		correct_pattern.emit()
-	
+	elif (len(dot_manager.user_guess) > 0 ):
+		added_to_user_guess.emit()
+		
+
 
 func _on_mouse_exited() -> void:
 	pass
@@ -102,6 +108,12 @@ func _draw_to_neighbor(dot: Dot):
 #rename to _disable_line
 func _reset_line():
 	line2dtest.clear_points()
+	
+func _reset_mouse_line():
+	line_to_mouse.clear_points()
+	mouse_active_dot = false
+	
+	
 
 func _enable_line():
 	pass

@@ -13,6 +13,12 @@ extends Node2D
 @onready var dot7 = $Dot7
 @onready var dot8 = $Dot8
 @onready var score = 0
+@onready var dot_1_index = null
+@onready var dot_2_index = null
+
+@onready var active_dot = null
+
+@onready var debug_counter =0
 
 var animate = true
 var draw_allowed = false
@@ -34,6 +40,8 @@ func _ready():
 	for dot in dot_array:
 		dot.connect("wrong_pattern", Callable(self,"_reset_to_new_pattern"))
 		dot.connect("correct_pattern", Callable(self,"_increase_score"))
+		dot.connect("added_to_user_guess", Callable(self,"_move_draw_window"))
+		dot.connect("added_to_user_guess", Callable(self,"_move_active_dot"))
 		#dot.connect("current_dot", Callable(self,"_draw_line_to_mouse"))
 	
 	#dot_array[2]._draw_to_neighbor(dot_array[4])
@@ -41,14 +49,7 @@ func _ready():
 	#_generate_pattern()
 	#for dot in pattern:
 		#dot._activate()
-
-func _search_mouse_active_dot() -> Dot:
-	for dot in dot_array:
-		if dot.mouse_active_dot:
-			return dot
-	return null
-	
-
+		
 func _process(delta: float) -> void:
 
 	if animate:
@@ -70,13 +71,56 @@ func _process(delta: float) -> void:
 	if draw_allowed:
 		_draw_line_to_mouse()
 
+func _move_active_dot():
+	if active_dot != null :
+		active_dot._reset_mouse_line()
+	
+	user_guess[-1].mouse_active_dot = true
+	
+	active_dot = user_guess[-1]
+
+func _move_draw_window():
+	if len(user_guess) == 1:
+		dot_1_index = 0
+	elif len(user_guess) == 2:
+		dot_2_index = 1
+		user_guess[dot_1_index]._draw_to_neighbor(user_guess[dot_2_index])
+	else:
+		dot_1_index +=1
+		dot_2_index +=1
+		user_guess[dot_1_index]._draw_to_neighbor(user_guess[dot_2_index])
+
+	
+#func _search_mouse_active_dot() -> Dot:
+	#
+	#for dot in dot_array:
+		#if dot.mouse_active_dot:
+			#return dot
+	#return null
+	
+
+
+
+func _user_guess_index_checker():
+	pass
+	
+
 func _draw_line_to_mouse():
-	var dot = _search_mouse_active_dot()
+	#var dot = _search_mouse_active_dot()
+	#var dot = null
+	#
+	#var dot_1 = null
+	#var dot_2 = null
+	#
+	#if dot_1_index != null:
+		#dot_1 = user_guess[dot_1_index]
 	#print(dot)
-	if dot != null:
-		print("LINE DOT: " + dot.name)
-		print(dot.position)
-		print(get_viewport().get_mouse_position())
+	if active_dot != null:
+		if(debug_counter % 100 == 0):
+			print("LINE DOT: " + active_dot.name)
+		debug_counter += 1
+		#print(dot.position)
+		#print(get_viewport().get_mouse_position())
 		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
 		#dot.line_to_mouse.global_position = Vector2.ZERO
 		#dot.line_to_mouse.points = [dot.global_position, get_viewport().get_mouse_position()]
@@ -85,9 +129,9 @@ func _draw_line_to_mouse():
 		
 		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
 		#dot.line_to_mouse.points = [dot.global_position, get_global_mouse_position()]
-		var start_local = dot.to_local(dot.global_position) 
-		var end_local   = dot.to_local(get_global_mouse_position())
-		dot.line_to_mouse.points = [start_local, end_local]
+		var start_local = active_dot.to_local(active_dot.global_position) 
+		var end_local   = active_dot.to_local(get_global_mouse_position())
+		active_dot.line_to_mouse.points = [start_local, end_local]
 	
 
 func _generate_pattern():
@@ -146,6 +190,7 @@ func _deactivate_all_dots():
 	for dot in dot_array:
 		dot._deactivate()
 		dot._reset_line()
+		dot._reset_mouse_line()
 
 func _increase_score():
 	score += 1
@@ -160,3 +205,4 @@ func _reset_to_new_pattern():
 	user_guess.clear()
 	animate = true
 	draw_allowed = false
+	active_dot = null
