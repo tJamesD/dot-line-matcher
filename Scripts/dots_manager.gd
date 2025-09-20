@@ -40,8 +40,8 @@ func _ready():
 	for dot in dot_array:
 		dot.connect("wrong_pattern", Callable(self,"_reset_to_new_pattern"))
 		dot.connect("correct_pattern", Callable(self,"_increase_score"))
-		dot.connect("added_to_user_guess", Callable(self,"_move_draw_window"))
-		dot.connect("added_to_user_guess", Callable(self,"_move_active_dot"))
+		dot.connect("added_to_user_guess", Callable(self,"_move_draw_window"),CONNECT_DEFERRED)
+		dot.connect("added_to_user_guess", Callable(self,"_move_active_dot"),CONNECT_DEFERRED)
 		#dot.connect("current_dot", Callable(self,"_draw_line_to_mouse"))
 	
 	#dot_array[2]._draw_to_neighbor(dot_array[4])
@@ -80,14 +80,17 @@ func _move_active_dot():
 	active_dot = user_guess[-1]
 
 func _move_draw_window():
+	#print("USER_GUESSES: " + str(user_guess))
+	#print("DOt1: " + str(dot_1_index) + " DOT2: " + str(dot_2_index))
 	if len(user_guess) == 1:
 		dot_1_index = 0
 	elif len(user_guess) == 2:
 		dot_2_index = 1
 		user_guess[dot_1_index]._draw_to_neighbor(user_guess[dot_2_index])
-	else:
+	elif len(user_guess)  > 2:
 		dot_1_index +=1
 		dot_2_index +=1
+		#print("DOt1_1: " + str(dot_1_index) + "DOT2_2: " + str(dot_2_index))
 		user_guess[dot_1_index]._draw_to_neighbor(user_guess[dot_2_index])
 
 	
@@ -195,12 +198,15 @@ func _deactivate_all_dots():
 func _increase_score():
 	score += 1
 	print(score)
+	#_move_draw_window()
 	_reset_to_new_pattern()
 	
 		
 func _reset_to_new_pattern():
 	_reset_neighbor_status()
 	_deactivate_all_dots()
+	dot_1_index = 0
+	dot_2_index = 0
 	
 	user_guess.clear()
 	animate = true

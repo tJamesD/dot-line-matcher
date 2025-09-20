@@ -36,17 +36,19 @@ func _on_mouse_entered() -> void:
 	#likely change, will be do other things, method will handled activaiton
 	#sprite.modulate = Color(0.89,0.49,0,1)
 	if dot_manager.draw_allowed:
-		mouse_active_dot = true
+		#mouse_active_dot = true
 		_activate()
 		#current_dot.emit(self)
 		if dot_manager.user_guess.count(self) == 0:
 			dot_manager.user_guess.append(self)
-		_check_solution()
+			print("SELFCHECK: " + str(dot_manager.user_guess))
+			_check_solution()
 	
 
 func _check_solution():
 	var index : int = 0
 	for dot in dot_manager.user_guess:
+		print("USER_GUESS NAME: " + dot.name + " PATTERNAME: " + dot_manager.pattern[index].name)
 		if dot != dot_manager.pattern[index]:
 			print("Wrong Guess!!!")
 			wrong_pattern.emit()
