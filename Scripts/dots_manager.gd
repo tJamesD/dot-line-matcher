@@ -22,6 +22,10 @@ extends Node2D
 
 signal score_increased(amt :int)
 signal level_increased(level :int)
+signal timer_update(amt :int)
+
+@onready var timer = 60
+@onready var second_tracker = 0.0
 
 var animate = true
 var draw_allowed = false
@@ -52,9 +56,17 @@ func _ready():
 	#_generate_pattern()
 	#for dot in pattern:
 		#dot._activate()
+	#second_tracker += Time.get_unix_time_from_system()
 		
 func _process(delta: float) -> void:
-
+	
+	second_tracker += delta
+	if second_tracker >= 1.0:
+		print(timer)
+		second_tracker = 0
+		timer -= 1
+		timer_update.emit(timer)
+	
 	if animate:
 		animate = false
 		for i in range(1):
