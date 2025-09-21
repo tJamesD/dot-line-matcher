@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://btt8t0iqov2lk"]
+[gd_scene load_steps=8 format=3 uid="uid://btt8t0iqov2lk"]
 
 [ext_resource type="Script" uid="uid://dsb0gcdpokhbx" path="res://Scripts/dots_manager.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://ct0creunkhh4g" path="res://Scenes/dot.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://bl2ua0htfp4e" path="res://Scenes/ui.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://c1pqc135ih2pq" path="res://Scenes/line.tscn" id="3_8gbba"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kry3j"]
+font_size = 80
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Gradient" id="Gradient_7u77a"]
 colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
@@ -14,6 +20,15 @@ height = 1080
 fill_to = Vector2(0, 2)
 
 [node name="Main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_jjvhh")
+
+[node name="Score" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_kry3j")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -37,42 +52,43 @@ stretch_mode = 4
 
 [node name="Dots" type="Node" parent="."]
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="DotManager" type="Node2D" parent="."]
 script = ExtResource("1_bo1nx")
+gen_length = 3
 
-[node name="Dot0" parent="Node2D" instance=ExtResource("1_jjgbg")]
+[node name="Dot0" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(257.5, 700)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Dot1" parent="Node2D" instance=ExtResource("1_jjgbg")]
+[node name="Dot1" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(540, 700)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Dot2" parent="Node2D" instance=ExtResource("1_jjgbg")]
+[node name="Dot2" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(821.5, 700)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Dot3" parent="Node2D" instance=ExtResource("1_jjgbg")]
+[node name="Dot3" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(257.5, 1000)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Dot4" parent="Node2D" instance=ExtResource("1_jjgbg")]
+[node name="Dot4" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(540, 1000)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Dot5" parent="Node2D" instance=ExtResource("1_jjgbg")]
+[node name="Dot5" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(821.5, 1000)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Dot6" parent="Node2D" instance=ExtResource("1_jjgbg")]
+[node name="Dot6" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(257.5, 1300)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Dot7" parent="Node2D" instance=ExtResource("1_jjgbg")]
+[node name="Dot7" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(540, 1300)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Dot8" parent="Node2D" instance=ExtResource("1_jjgbg")]
+[node name="Dot8" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(821.5, 1300)
 scale = Vector2(0.184176, 0.184176)
 

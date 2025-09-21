@@ -41,14 +41,14 @@ func _on_mouse_entered() -> void:
 		#current_dot.emit(self)
 		if dot_manager.user_guess.count(self) == 0:
 			dot_manager.user_guess.append(self)
-			print("SELFCHECK: " + str(dot_manager.user_guess))
+			#print("SELFCHECK: " + str(dot_manager.user_guess))
 			_check_solution()
 	
 
 func _check_solution():
 	var index : int = 0
 	for dot in dot_manager.user_guess:
-		print("USER_GUESS NAME: " + dot.name + " PATTERNAME: " + dot_manager.pattern[index].name)
+		#print("USER_GUESS NAME: " + dot.name + " PATTERNAME: " + dot_manager.pattern[index].name)
 		if dot != dot_manager.pattern[index]:
 			print("Wrong Guess!!!")
 			wrong_pattern.emit()

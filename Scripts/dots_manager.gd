@@ -20,6 +20,8 @@ extends Node2D
 
 @onready var debug_counter =0
 
+signal score_increased(amt :int)
+
 var animate = true
 var draw_allowed = false
 @export var gen_length : int = 9
@@ -80,7 +82,7 @@ func _move_active_dot():
 	active_dot = user_guess[-1]
 
 func _move_draw_window():
-	#print("USER_GUESSES: " + str(user_guess))
+	print("USER_GUESSES: " + str(user_guess))
 	#print("DOt1: " + str(dot_1_index) + " DOT2: " + str(dot_2_index))
 	if len(user_guess) == 1:
 		dot_1_index = 0
@@ -120,8 +122,9 @@ func _draw_line_to_mouse():
 	#print(dot)
 	if active_dot != null:
 		if(debug_counter % 100 == 0):
-			print("LINE DOT: " + active_dot.name)
-		debug_counter += 1
+			pass
+			#print("LINE DOT: " + active_dot.name)
+		#debug_counter += 1
 		#print(dot.position)
 		#print(get_viewport().get_mouse_position())
 		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
@@ -197,7 +200,9 @@ func _deactivate_all_dots():
 
 func _increase_score():
 	score += 1
-	print(score)
+	score_increased.emit(score)
+	#print(score)
+	#increaseScore.emit(amt)
 	#_move_draw_window()
 	_reset_to_new_pattern()
 	
