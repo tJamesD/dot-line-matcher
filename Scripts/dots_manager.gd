@@ -25,6 +25,7 @@ signal level_increased(level :int)
 signal timer_update(amt :int)
 
 @onready var timer = 60
+@export var time_increase_amount = 2
 @onready var second_tracker = 0.0
 
 var animate = true
@@ -239,6 +240,7 @@ func _increase_score():
 	score += 1
 	_increase_gen_count()
 	score_increased.emit(score)
+	timer += time_increase_amount
 	#print(score)
 	#increaseScore.emit(amt)
 	#_move_draw_window()
