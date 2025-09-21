@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://btt8t0iqov2lk"]
+[gd_scene load_steps=10 format=3 uid="uid://btt8t0iqov2lk"]
 
 [ext_resource type="Script" uid="uid://dsb0gcdpokhbx" path="res://Scripts/dots_manager.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://ct0creunkhh4g" path="res://Scenes/dot.tscn" id="1_jjgbg"]
@@ -6,6 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://c1pqc135ih2pq" path="res://Scenes/line.tscn" id="3_8gbba"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kry3j"]
+font_size = 80
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jjvhh"]
+font_size = 80
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_21xkr"]
 font_size = 80
 shadow_size = 8
 shadow_color = Color(0, 0, 0, 1)
@@ -29,6 +39,26 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_kry3j")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="CanvasLayer"]
+offset_top = 110.0
+offset_right = 289.0
+offset_bottom = 220.0
+text = "Level: 1"
+label_settings = SubResource("LabelSettings_jjvhh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="CanvasLayer"]
+offset_left = 755.0
+offset_right = 1079.0
+offset_bottom = 110.0
+text = "Time: 60"
+label_settings = SubResource("LabelSettings_21xkr")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -54,7 +84,6 @@ stretch_mode = 4
 
 [node name="DotManager" type="Node2D" parent="."]
 script = ExtResource("1_bo1nx")
-gen_length = 3
 
 [node name="Dot0" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(257.5, 700)

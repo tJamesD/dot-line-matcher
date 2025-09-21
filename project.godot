@@ -21,6 +21,7 @@ window/size/viewport_width=1080
 window/size/viewport_height=1920
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+window/handheld/orientation=1
 
 [dotnet]
 
@@ -29,3 +30,4 @@ project/assembly_name="DotLineMatcher"
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

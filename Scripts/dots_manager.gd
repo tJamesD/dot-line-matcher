@@ -21,10 +21,11 @@ extends Node2D
 @onready var debug_counter =0
 
 signal score_increased(amt :int)
+signal level_increased(level :int)
 
 var animate = true
 var draw_allowed = false
-@export var gen_length : int = 9
+@export var gen_length : int = 2
 var curr_length : int = 0
 
 func _ready():
@@ -72,6 +73,30 @@ func _process(delta: float) -> void:
 			curr_length = 0
 	if draw_allowed:
 		_draw_line_to_mouse()
+		
+func _increase_gen_count():
+	match score:
+		5:
+			gen_length +=1
+			level_increased.emit(gen_length)
+		10: 
+			gen_length +=1
+			level_increased.emit(gen_length)
+		15:
+			gen_length +=1
+			level_increased.emit(gen_length)
+		25:
+			gen_length +=1
+			level_increased.emit(gen_length)
+		35: 
+			gen_length +=1
+			level_increased.emit(gen_length)
+		45:
+			gen_length +=1
+			level_increased.emit(gen_length)
+		55:
+			gen_length +=1
+			level_increased.emit(gen_length)
 
 func _move_active_dot():
 	if active_dot != null :
@@ -200,6 +225,7 @@ func _deactivate_all_dots():
 
 func _increase_score():
 	score += 1
+	_increase_gen_count()
 	score_increased.emit(score)
 	#print(score)
 	#increaseScore.emit(amt)
