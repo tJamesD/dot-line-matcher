@@ -23,15 +23,18 @@ extends Node2D
 signal score_increased(amt :int)
 signal level_increased(level :int)
 signal timer_update(amt :int)
+signal game_over()
 
 @onready var timer = 60
 @export var time_increase_amount = 2
 @onready var second_tracker = 0.0
 
 var animate = true
+@export var animation_timer = 0.5
 var draw_allowed = false
 @export var gen_length : int = 2
 var curr_length : int = 0
+
 
 func _ready():
 	dot_array = [dot0, dot1, dot2, dot3, dot4, dot5, dot6, dot7, dot8]
@@ -66,6 +69,9 @@ func _process(delta: float) -> void:
 		print(timer)
 		second_tracker = 0
 		timer -= 1
+		if timer <= 0:
+			get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+			
 		timer_update.emit(timer)
 	
 	if animate:
@@ -80,7 +86,7 @@ func _process(delta: float) -> void:
 					dot._enable_line()
 				prev_dot = dot
 				dot._activate();
-				await get_tree().create_timer(1.0).timeout
+				await get_tree().create_timer(animation_timer).timeout
 			_deactivate_all_dots()
 			draw_allowed = true
 			curr_length = 0
@@ -174,7 +180,7 @@ func _draw_line_to_mouse():
 		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
 		#dot.line_to_mouse.points = [dot.global_position, get_global_mouse_position()]
 		var start_local = active_dot.to_local(active_dot.global_position) 
-		var end_local   = active_dot.to_local(get_global_mouse_position())
+		var end_local   = active_dot.to_local(get_viewport().get_mouse_position())
 		active_dot.line_to_mouse.points = [start_local, end_local]
 	
 

@@ -20,11 +20,11 @@ font_size = 80
 shadow_size = 8
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="Gradient" id="Gradient_7u77a"]
+[sub_resource type="Gradient" id="Gradient_jjvhh"]
 colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jjgbg"]
-gradient = SubResource("Gradient_7u77a")
+gradient = SubResource("Gradient_jjvhh")
 width = 1020
 height = 1080
 fill_to = Vector2(0, 2)

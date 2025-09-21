@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7whuc1ktrb00"]
+
+[sub_resource type="Gradient" id="Gradient_7u77a"]
+colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_i2yjh"]
+gradient = SubResource("Gradient_7u77a")
+width = 1020
+height = 1080
+fill_to = Vector2(0, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ojehl"]
+font_size = 125
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BackgroundGradient" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1040.0
+offset_bottom = 1880.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_i2yjh")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="GameOver" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -206.5
+offset_top = -111.5
+offset_right = 206.5
+offset_bottom = 111.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "GameOver
+"
+label_settings = SubResource("LabelSettings_ojehl")
+horizontal_alignment = 1
+vertical_alignment = 1
