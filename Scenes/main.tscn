@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://btt8t0iqov2lk"]
+[gd_scene load_steps=9 format=3 uid="uid://btt8t0iqov2lk"]
 
 [ext_resource type="Script" uid="uid://dsb0gcdpokhbx" path="res://Scripts/dots_manager.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://ct0creunkhh4g" path="res://Scenes/dot.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bl2ua0htfp4e" path="res://Scenes/ui.gd" id="1_jjvhh"]
-[ext_resource type="PackedScene" uid="uid://c1pqc135ih2pq" path="res://Scenes/line.tscn" id="3_8gbba"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kry3j"]
 font_size = 80
@@ -60,13 +59,13 @@ label_settings = SubResource("LabelSettings_21xkr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="."]
+[node name="Background" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="BackgroundGradient" type="TextureRect" parent="Control"]
+[node name="BackgroundGradient" type="TextureRect" parent="Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,8 +78,6 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_jjgbg")
 expand_mode = 4
 stretch_mode = 6
-
-[node name="Dots" type="Node" parent="."]
 
 [node name="DotManager" type="Node2D" parent="."]
 script = ExtResource("1_bo1nx")
@@ -123,7 +120,3 @@ scale = Vector2(0.184176, 0.184176)
 [node name="Dot8" parent="DotManager" instance=ExtResource("1_jjgbg")]
 position = Vector2(821.5, 1300)
 scale = Vector2(0.184176, 0.184176)
-
-[node name="OldLine" parent="." instance=ExtResource("3_8gbba")]
-visible = false
-position = Vector2(257.5, 700)

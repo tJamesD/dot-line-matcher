@@ -12,7 +12,7 @@ extends Node2D
 @onready var dot6 = $Dot6
 @onready var dot7 = $Dot7
 @onready var dot8 = $Dot8
-@onready var score = 0
+@onready var score :int = 0
 @onready var dot_1_index = null
 @onready var dot_2_index = null
 
