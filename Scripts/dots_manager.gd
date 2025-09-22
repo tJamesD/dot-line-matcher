@@ -179,9 +179,10 @@ func _draw_line_to_mouse():
 		
 		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
 		#dot.line_to_mouse.points = [dot.global_position, get_global_mouse_position()]
-		var start_local = active_dot.to_local(active_dot.global_position) 
-		var end_local   = active_dot.to_local(get_viewport().get_mouse_position())
-		active_dot.line_to_mouse.points = [start_local, end_local]
+		var start_local = active_dot.to_local(active_dot.global_position)
+		if get_viewport() != null: 
+			var end_local   = active_dot.to_local(get_viewport().get_mouse_position())
+			active_dot.line_to_mouse.points = [start_local, end_local]
 	
 
 func _generate_pattern():

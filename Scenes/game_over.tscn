@@ -5,8 +5,8 @@ colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.1
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_i2yjh"]
 gradient = SubResource("Gradient_7u77a")
-width = 1020
-height = 1080
+width = 1080
+height = 1920
 fill_to = Vector2(0, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ojehl"]
@@ -28,14 +28,14 @@ grow_vertical = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1040.0
-offset_bottom = 1880.0
+offset_right = 1.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_i2yjh")
-expand_mode = 2
-stretch_mode = 4
+expand_mode = 4
+stretch_mode = 6
 
 [node name="GameOver" type="Label" parent="CanvasLayer"]
 anchors_preset = 8
