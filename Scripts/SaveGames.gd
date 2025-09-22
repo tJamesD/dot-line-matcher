@@ -3,6 +3,7 @@ extends Node
 var score_dict = {}
 var score_array = []
 var equal 
+var last_score = 0
 
 var save_path = "user://highscores.save"
 
@@ -10,6 +11,7 @@ func _ready():
 	_load_scores()
 
 func add_score(score: int, name: String):
+	last_score = score
 	if _check_max_scores():
 		#score_dict.set(score, name)
 		score_array.append({"name":name, "score" :score})
@@ -56,6 +58,8 @@ func _check_for_new_high_score(new_score :int):
 			break;
 	return new_high_score
 
-
-		
-	
+func get_keys() -> Array:
+	var retArr = []
+	for dict in score_array:
+		retArr.append(dict["score"])
+	return retArr;

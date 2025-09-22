@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7whuc1ktrb00"]
+[gd_scene load_steps=8 format=3 uid="uid://c7whuc1ktrb00"]
+
+[ext_resource type="Script" uid="uid://cwe6oqmevvt5c" path="res://Scenes/game_over.gd" id="1_ojehl"]
 
 [sub_resource type="Gradient" id="Gradient_7u77a"]
 colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
@@ -14,6 +16,21 @@ font_size = 125
 shadow_size = 8
 shadow_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_i2yjh"]
+font_size = 125
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8fo1c"]
+font_size = 125
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ek8ke"]
+font_size = 125
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
 [node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -21,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ojehl")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -38,19 +56,71 @@ expand_mode = 4
 stretch_mode = 6
 
 [node name="GameOver" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -339.5
+offset_top = 257.0
+offset_right = 339.5
+offset_bottom = 602.0
+grow_horizontal = 2
+text = "Game Over
+"
+label_settings = SubResource("LabelSettings_ojehl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -206.5
-offset_top = -111.5
-offset_right = 206.5
-offset_bottom = 111.5
+offset_left = -214.0
+offset_top = -638.0
+offset_right = 214.0
+offset_bottom = -293.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "GameOver
-"
-label_settings = SubResource("LabelSettings_ojehl")
+text = "Score: "
+label_settings = SubResource("LabelSettings_i2yjh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScores" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -369.0
+offset_top = -297.0
+offset_right = 370.0
+offset_bottom = -126.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "High Scores:"
+label_settings = SubResource("LabelSettings_8fo1c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Data" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -95.0
+offset_right = 105.0
+offset_bottom = 772.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1: 0
+2: 0
+3: 0
+4: 0
+5: 0"
+label_settings = SubResource("LabelSettings_ek8ke")
 horizontal_alignment = 1
 vertical_alignment = 1
