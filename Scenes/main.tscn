@@ -84,6 +84,7 @@ stretch_mode = 6
 
 [node name="DotManager" type="Node2D" parent="."]
 script = ExtResource("1_bo1nx")
+timer = 5
 time_increase_amount = 5
 animation_timer = 0.75
 
@@ -123,6 +124,6 @@ scale = Vector2(0.184176, 0.184176)
 position = Vector2(821.5, 1300)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Main" parent="." instance=ExtResource("3_8gbba")]
+[node name="OldLine" parent="." instance=ExtResource("3_8gbba")]
 visible = false
 position = Vector2(257.5, 700)

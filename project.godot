@@ -15,6 +15,10 @@ run/main_scene="uid://btt8t0iqov2lk"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SaveGames="*res://Scripts/SaveGames.gd"
+
 [display]
 
 window/size/viewport_width=1080

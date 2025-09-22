@@ -25,7 +25,7 @@ signal level_increased(level :int)
 signal timer_update(amt :int)
 signal game_over()
 
-@onready var timer = 60
+@export var timer = 60
 @export var time_increase_amount = 2
 @onready var second_tracker = 0.0
 
@@ -66,11 +66,12 @@ func _process(delta: float) -> void:
 	
 	second_tracker += delta
 	if second_tracker >= 1.0:
-		print(timer)
+		#print(timer)
 		second_tracker = 0
 		timer -= 1
 		if timer <= 0:
 			get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+			SaveGames.add_score(score,"Tim")
 			
 		timer_update.emit(timer)
 	
