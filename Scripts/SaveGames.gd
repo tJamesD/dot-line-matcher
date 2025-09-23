@@ -69,3 +69,7 @@ func get_keys() -> Array:
 	for dict in score_array:
 		retArr.append(dict["score"])
 	return retArr;
+
+func reset_high_scores():
+	score_array = []
+	_save_score()

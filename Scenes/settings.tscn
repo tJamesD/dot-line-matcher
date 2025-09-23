@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2uwbsv280fi7"]
+
+[ext_resource type="Script" uid="uid://cjnabilv5ro84" path="res://Scenes/settings.gd" id="1_4geyq"]
+
+[sub_resource type="Gradient" id="Gradient_7u77a"]
+colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eyi13"]
+gradient = SubResource("Gradient_7u77a")
+width = 1080
+height = 1920
+fill_to = Vector2(0, 2)
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4geyq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BackgroundGradient" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_eyi13")
+expand_mode = 4
+stretch_mode = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="Menu" type="Button" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.497222
+anchor_bottom = 1.0
+offset_top = -1029.0
+offset_right = 543.0
+offset_bottom = -757.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "Menu"
+metadata/_edit_use_anchors_ = true
+
+[node name="ResetHighScores" type="Button" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.497222
+anchor_bottom = 1.0
+offset_top = -1301.0
+offset_right = 543.0
+offset_bottom = -1029.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 80
+text = "Reset High Scores
+"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="CanvasLayer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/ResetHighScores" to="." method="_on_reset_high_scores_pressed"]
