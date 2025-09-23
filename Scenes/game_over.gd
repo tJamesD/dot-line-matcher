@@ -35,3 +35,7 @@ func _ready():
 					  "4: " + str(int(scores[3])) + "\n" + \
 					  "5: " + str(int(scores[4])) + "\n"
 	
+
+
+func _on_retry_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
