@@ -1,0 +1,122 @@
+[gd_scene load_steps=5 format=3 uid="uid://duw2nc0y1k4mg"]
+
+[ext_resource type="Script" uid="uid://djcvuq7g1n820" path="res://Scripts/menu.gd" id="1_1rerr"]
+
+[sub_resource type="Gradient" id="Gradient_jjvhh"]
+colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u4yt8"]
+gradient = SubResource("Gradient_jjvhh")
+width = 1080
+height = 1920
+fill_to = Vector2(0, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xhh6f"]
+font_size = 150
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="MenuUnit" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1rerr")
+
+[node name="BackgroundGradient" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_u4yt8")
+expand_mode = 4
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -542.0
+offset_top = -8.0
+offset_right = 540.0
+offset_bottom = 234.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 125
+text = "Play"
+
+[node name="Settings" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -542.0
+offset_top = 234.0
+offset_right = 540.0
+offset_bottom = 476.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 125
+text = "Settings"
+
+[node name="High Scores" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -542.0
+offset_top = 476.0
+offset_right = 540.0
+offset_bottom = 718.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 125
+text = "High Scores"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -542.0
+offset_top = 718.0
+offset_right = 540.0
+offset_bottom = 960.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 125
+text = "Quit
+"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -393.0
+offset_top = 547.0
+offset_right = 398.0
+offset_bottom = 752.0
+grow_horizontal = 2
+text = "Dot Swiper"
+label_settings = SubResource("LabelSettings_xhh6f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="High Scores" to="." method="_on_high_scores_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

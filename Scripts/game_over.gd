@@ -2,8 +2,10 @@ extends Control
 
 @onready var current_run_score_label = $CanvasLayer/Score
 @onready var data_label = $CanvasLayer/Data
+@onready var game_over_label = $CanvasLayer/GameOver
 
 func _ready():
+	
 	current_run_score_label.text = "Score: " + str(SaveGames.last_score)
 	SaveGames._load_scores()
 	var scores = SaveGames.get_keys()
@@ -14,21 +16,6 @@ func _ready():
 		scores.append(0)
 		scores_index+=1
 			
-	
-	#if scores[0] == null:
-		#scores[0] = 0
-	#if scores[1] == null:
-		#scores[1] = 0
-	#if scores[2] == null:
-		#scores[2] = 0
-	#if scores[3] == null:
-		#scores[3] = 0
-	#if scores[4] == null:
-		#scores[5] = 0
-		
-	
-	
-	
 	data_label.text = "1: " + str(int(scores[0])) + "\n" + \
 					  "2: " + str(int(scores[1])) + "\n" + \
 					  "3: " + str(int(scores[2])) + "\n" + \
@@ -39,3 +26,7 @@ func _ready():
 
 func _on_retry_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+
+
+func _on_menu_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/menu.tscn")

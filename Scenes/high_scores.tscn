@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxta80quqcr56"]
+
+[ext_resource type="Script" uid="uid://dkmuwjix1o41d" path="res://Scripts/high_scores.gd" id="1_3bph7"]
+
+[sub_resource type="Gradient" id="Gradient_7u77a"]
+colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jyo8s"]
+gradient = SubResource("Gradient_7u77a")
+width = 1080
+height = 1920
+fill_to = Vector2(0, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3bph7"]
+font_size = 125
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2s6yp"]
+font_size = 125
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="HighScores" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3bph7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BackgroundGradient" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_jyo8s")
+expand_mode = 4
+stretch_mode = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="HighScores" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -369.0
+offset_top = -452.0
+offset_right = 370.0
+offset_bottom = -281.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "High Scores:"
+label_settings = SubResource("LabelSettings_3bph7")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Data" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -250.0
+offset_right = 105.0
+offset_bottom = 617.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1: 0
+2: 0
+3: 0
+4: 0
+5: 0"
+label_settings = SubResource("LabelSettings_2s6yp")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Menu" type="Button" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.497222
+anchor_bottom = 1.0
+offset_top = -272.0
+offset_right = 543.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 80
+text = "Menu"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="CanvasLayer/Menu" to="." method="_on_menu_pressed"]
