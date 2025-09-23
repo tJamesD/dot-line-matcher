@@ -20,6 +20,7 @@ func add_score(score: int, name: String):
 	if _check_max_scores():
 		#score_dict.set(score, name)
 		score_array.append({"name":name, "score" :score})
+		score_array.sort_custom(_custom_sort)
 	elif _check_for_new_high_score(score):
 		score_array.append({"name":name, "score" :score})
 		score_array.sort_custom(_custom_sort)

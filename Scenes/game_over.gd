@@ -5,19 +5,26 @@ extends Control
 
 func _ready():
 	current_run_score_label.text = "Score: " + str(SaveGames.last_score)
-	
+	SaveGames._load_scores()
 	var scores = SaveGames.get_keys()
 	
-	if scores[0] == null:
-		scores[0] = 0
-	if scores[1] == null:
-		scores[1] = 0
-	if scores[2] == null:
-		scores[2] = 0
-	if scores[3] == null:
-		scores[3] = 0
-	if scores[4] == null:
-		scores[5] = 0
+	var scores_index = scores.size()
+	
+	while scores_index < 5:
+		scores.append(0)
+		scores_index+=1
+			
+	
+	#if scores[0] == null:
+		#scores[0] = 0
+	#if scores[1] == null:
+		#scores[1] = 0
+	#if scores[2] == null:
+		#scores[2] = 0
+	#if scores[3] == null:
+		#scores[3] = 0
+	#if scores[4] == null:
+		#scores[5] = 0
 		
 	
 	
