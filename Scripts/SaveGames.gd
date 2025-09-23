@@ -8,7 +8,12 @@ var last_score = 0
 var save_path = "user://highscores.save"
 
 func _ready():
+	#_fill_score_array()
 	_load_scores()
+
+func _fill_score_array():
+	for i in range(5):
+		score_array.append({"name":"Tim", "score" :0})
 
 func add_score(score: int, name: String):
 	last_score = score
