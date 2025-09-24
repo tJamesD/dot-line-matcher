@@ -35,6 +35,7 @@ var draw_allowed = false
 @export var gen_length : int = 2
 var curr_length : int = 0
 
+var level = 1;
 
 func _ready():
 	dot_array = [dot0, dot1, dot2, dot3, dot4, dot5, dot6, dot7, dot8]
@@ -96,27 +97,41 @@ func _process(delta: float) -> void:
 		
 func _increase_gen_count():
 	match score:
-		5:
+		#5:
+		2:
 			gen_length +=1
-			level_increased.emit(gen_length)
-		10: 
+			level +=1
+			level_increased.emit(level)
+		4:
+		#10: 
 			gen_length +=1
-			level_increased.emit(gen_length)
-		15:
+			level +=1
+			level_increased.emit(level)
+		6:
+		#15:
 			gen_length +=1
-			level_increased.emit(gen_length)
-		25:
+			level +=1
+			level_increased.emit(level)
+		8:
+		#25:
 			gen_length +=1
-			level_increased.emit(gen_length)
-		35: 
+			level +=1
+			level_increased.emit(level)
+		10:
+		#35: 
 			gen_length +=1
-			level_increased.emit(gen_length)
-		45:
+			level +=1
+			level_increased.emit(level)
+		12:
+		#45:
 			gen_length +=1
-			level_increased.emit(gen_length)
-		55:
+			level +=1
+			level_increased.emit(level)
+		14:
+		#55:
 			gen_length +=1
-			level_increased.emit(gen_length)
+			level +=1
+			level_increased.emit(level)
 
 func _move_active_dot():
 	if active_dot != null :

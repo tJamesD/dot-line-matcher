@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7whuc1ktrb00"]
+[gd_scene load_steps=9 format=3 uid="uid://c7whuc1ktrb00"]
 
 [ext_resource type="Script" uid="uid://cwe6oqmevvt5c" path="res://Scripts/game_over.gd" id="1_ojehl"]
+[ext_resource type="Texture2D" uid="uid://ccpwo4pgaumwi" path="res://Assets/white.png" id="2_8fo1c"]
 
 [sub_resource type="Gradient" id="Gradient_ojehl"]
 colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
@@ -55,6 +56,15 @@ texture = SubResource("GradientTexture2D_i2yjh")
 expand_mode = 4
 stretch_mode = 6
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8fo1c")
+expand_mode = 4
 
 [node name="GameOver" type="Label" parent="CanvasLayer"]
 anchors_preset = 5

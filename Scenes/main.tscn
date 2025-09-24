@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://btt8t0iqov2lk"]
+[gd_scene load_steps=10 format=3 uid="uid://btt8t0iqov2lk"]
 
 [ext_resource type="Script" uid="uid://dsb0gcdpokhbx" path="res://Scripts/dots_manager.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://ct0creunkhh4g" path="res://Scenes/dot.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bl2ua0htfp4e" path="res://Scenes/ui.gd" id="1_jjvhh"]
+[ext_resource type="Texture2D" uid="uid://ccpwo4pgaumwi" path="res://Assets/white.png" id="2_jjvhh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kry3j"]
 font_size = 80
@@ -79,7 +80,18 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 
+[node name="BackTexture" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_jjvhh")
+expand_mode = 4
+
 [node name="BackgroundGradient" type="TextureRect" parent="Background"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,7 +104,7 @@ expand_mode = 4
 
 [node name="DotManager" type="Node2D" parent="."]
 script = ExtResource("1_bo1nx")
-time_increase_amount = 5
+time_increase_amount = 10
 animation_timer = 0.75
 
 [node name="Dot0" parent="DotManager" instance=ExtResource("1_jjgbg")]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2uwbsv280fi7"]
+[gd_scene load_steps=5 format=3 uid="uid://c2uwbsv280fi7"]
 
 [ext_resource type="Script" uid="uid://cjnabilv5ro84" path="res://Scenes/settings.gd" id="1_4geyq"]
+[ext_resource type="Texture2D" uid="uid://ccpwo4pgaumwi" path="res://Assets/white.png" id="2_i44u3"]
 
 [sub_resource type="Gradient" id="Gradient_7u77a"]
 colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
@@ -35,6 +36,15 @@ texture = SubResource("GradientTexture2D_eyi13")
 expand_mode = 4
 stretch_mode = 6
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_i44u3")
+expand_mode = 4
 
 [node name="Menu" type="Button" parent="CanvasLayer"]
 anchors_preset = -1
