@@ -251,7 +251,13 @@ func _increase_score():
 	timer += time_increase_amount
 	#print(score)
 	#increaseScore.emit(amt)
-	#_move_draw_window()
+	
+	#pause and actually draw last dot.
+	_move_draw_window()
+	active_dot._reset_mouse_line()
+	active_dot = null
+	await get_tree().create_timer(.1).timeout
+
 	_reset_to_new_pattern()
 	
 		
