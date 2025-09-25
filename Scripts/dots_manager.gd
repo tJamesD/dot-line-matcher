@@ -97,38 +97,38 @@ func _process(delta: float) -> void:
 		
 func _increase_gen_count():
 	match score:
-		#5:
-		2:
+		5:
+		#2:
 			gen_length +=1
 			level +=1
 			level_increased.emit(level)
-		4:
-		#10: 
+		#4:
+		10: 
 			gen_length +=1
 			level +=1
 			level_increased.emit(level)
-		6:
-		#15:
+		#6:
+		15:
 			gen_length +=1
 			level +=1
 			level_increased.emit(level)
-		8:
-		#25:
+		#8:
+		25:
 			gen_length +=1
 			level +=1
 			level_increased.emit(level)
-		10:
-		#35: 
+		#10:
+		35: 
 			gen_length +=1
 			level +=1
 			level_increased.emit(level)
-		12:
-		#45:
+		#12:
+		45:
 			gen_length +=1
 			level +=1
 			level_increased.emit(level)
-		14:
-		#55:
+		#14:
+		55:
 			gen_length +=1
 			level +=1
 			level_increased.emit(level)

@@ -28,7 +28,7 @@ func _ready():
 	
 	line_to_mouse.width = 150
 	line_to_mouse.z_index = 1
-	line_to_mouse.default_color = Color.GREEN
+	line_to_mouse.default_color = Color.ORANGE
 	add_child(line_to_mouse)
 	
 
