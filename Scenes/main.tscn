@@ -104,43 +104,53 @@ expand_mode = 4
 
 [node name="DotManager" type="Node2D" parent="."]
 script = ExtResource("1_bo1nx")
-time_increase_amount = 5
 animation_timer = 0.75
 
 [node name="Dot0" parent="DotManager" instance=ExtResource("1_jjgbg")]
+z_index = 1
 position = Vector2(257.5, 700)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Dot1" parent="DotManager" instance=ExtResource("1_jjgbg")]
+z_index = 1
 position = Vector2(540, 700)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Dot2" parent="DotManager" instance=ExtResource("1_jjgbg")]
+z_index = 1
 position = Vector2(821.5, 700)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Dot3" parent="DotManager" instance=ExtResource("1_jjgbg")]
+z_index = 1
 position = Vector2(257.5, 1000)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Dot4" parent="DotManager" instance=ExtResource("1_jjgbg")]
+z_index = 1
 position = Vector2(540, 1000)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Dot5" parent="DotManager" instance=ExtResource("1_jjgbg")]
+z_index = 1
 position = Vector2(821.5, 1000)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Dot6" parent="DotManager" instance=ExtResource("1_jjgbg")]
+z_index = 1
 position = Vector2(257.5, 1300)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Dot7" parent="DotManager" instance=ExtResource("1_jjgbg")]
+z_index = 1
 position = Vector2(540, 1300)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Dot8" parent="DotManager" instance=ExtResource("1_jjgbg")]
+z_index = 1
 position = Vector2(821.5, 1300)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Main" type="Node2D" parent="."]
+
+[connection signal="input_event" from="DotManager/Dot0" to="DotManager/Dot0" method="_on_input_event"]

@@ -25,7 +25,7 @@ signal level_increased(level :int)
 signal timer_update(amt :int)
 signal game_over()
 
-@export var timer = 60
+@export var timer = 30
 @export var time_increase_amount = 2
 @onready var second_tracker = 0.0
 
@@ -34,7 +34,7 @@ var animate = true
 var draw_allowed = false
 @export var gen_length : int = 2
 var curr_length : int = 0
-
+var decrease_timer = false
 var level = 1;
 
 func _ready():
@@ -93,6 +93,7 @@ func _process(delta: float) -> void:
 			draw_allowed = true
 			curr_length = 0
 	if draw_allowed:
+		#var pointer_pos = get_global_mouse_position()
 		_draw_line_to_mouse()
 		
 func _increase_gen_count():
@@ -101,36 +102,43 @@ func _increase_gen_count():
 		#2:
 			gen_length +=1
 			level +=1
+			time_increase_amount = 3
 			level_increased.emit(level)
 		#4:
 		10: 
 			gen_length +=1
 			level +=1
+			time_increase_amount = 5
 			level_increased.emit(level)
 		#6:
 		15:
 			gen_length +=1
 			level +=1
+			time_increase_amount = 6
 			level_increased.emit(level)
 		#8:
 		25:
 			gen_length +=1
 			level +=1
+			time_increase_amount = 7
 			level_increased.emit(level)
 		#10:
 		35: 
 			gen_length +=1
 			level +=1
+			time_increase_amount = 8
 			level_increased.emit(level)
 		#12:
 		45:
 			gen_length +=1
 			level +=1
+			time_increase_amount = 9
 			level_increased.emit(level)
 		#14:
 		55:
 			gen_length +=1
 			level +=1
+			time_increase_amount = 9.5
 			level_increased.emit(level)
 
 func _move_active_dot():
@@ -273,10 +281,10 @@ func _increase_score():
 	active_dot = null
 	await get_tree().create_timer(.1).timeout
 
-	_reset_to_new_pattern()
+	_reset_to_new_pattern(false)
 	
 		
-func _reset_to_new_pattern():
+func _reset_to_new_pattern(decrease_time:bool):
 	_reset_neighbor_status()
 	_deactivate_all_dots()
 	dot_1_index = 0
@@ -286,3 +294,7 @@ func _reset_to_new_pattern():
 	animate = true
 	draw_allowed = false
 	active_dot = null
+	
+	if decrease_time:
+		print("TIME DECREASED")
+		timer -= time_increase_amount

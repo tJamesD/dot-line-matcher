@@ -6,7 +6,7 @@ var activated : bool = false
 var isValid : bool = true
 var neighbors = []
 
-signal wrong_pattern
+signal wrong_pattern(inverse_time:bool)
 signal correct_pattern
 signal added_to_user_guess
 
@@ -33,8 +33,6 @@ func _ready():
 	
 
 func _on_mouse_entered() -> void:
-	#likely change, will be do other things, method will handled activaiton
-	#sprite.modulate = Color(0.89,0.49,0,1)
 	if dot_manager.draw_allowed:
 		#mouse_active_dot = true
 		_activate()
@@ -43,15 +41,43 @@ func _on_mouse_entered() -> void:
 			dot_manager.user_guess.append(self)
 			#print("SELFCHECK: " + str(dot_manager.user_guess))
 			_check_solution()
-	
 
+#func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	#if not dot_manager.draw_allowed:
+		#return
+## PC: hover/move with button held down
+	#elif event is InputEventMouseMotion:
+		#print("AAAA")
+		#_handle_activation()
+	## PC: click
+	#elif event is InputEventMouseButton and event.pressed:
+		#print("BBBB")
+		#_handle_activation()
+#
+	## Mobile: tap/hold
+	#elif event is InputEventScreenTouch and event.pressed:
+		#print("CCCC")
+		#_handle_activation()
+#
+	## Mobile: drag across
+	#elif event is InputEventScreenDrag:
+		#print("DDDD")
+		#_handle_activation()
+#
+#
+#func _handle_activation() -> void:
+	#_activate()
+#
+	#if dot_manager.user_guess.count(self) == 0:
+		#dot_manager.user_guess.append(self)
+		#_check_solution()
 func _check_solution():
 	var index : int = 0
 	for dot in dot_manager.user_guess:
 		#print("USER_GUESS NAME: " + dot.name + " PATTERNAME: " + dot_manager.pattern[index].name)
 		if dot != dot_manager.pattern[index]:
 			print("Wrong Guess!!!")
-			wrong_pattern.emit()
+			wrong_pattern.emit(true)
 			return;
 		index+=1
 	
