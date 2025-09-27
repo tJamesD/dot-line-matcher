@@ -26,7 +26,7 @@ signal timer_update(amt :int)
 signal game_over()
 
 @export var timer = 30
-@export var time_increase_amount = 2
+@export var time_increase_amount = 3
 @onready var second_tracker = 0.0
 
 var animate = true
@@ -102,43 +102,43 @@ func _increase_gen_count():
 		#2:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 3
+			time_increase_amount = 3.9
 			level_increased.emit(level)
 		#4:
 		10: 
 			gen_length +=1
 			level +=1
-			time_increase_amount = 5
+			time_increase_amount = 4.5
 			level_increased.emit(level)
 		#6:
 		15:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 6
+			time_increase_amount = 5.6
 			level_increased.emit(level)
 		#8:
 		25:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 7
+			time_increase_amount = 5.6
 			level_increased.emit(level)
 		#10:
 		35: 
 			gen_length +=1
 			level +=1
-			time_increase_amount = 8
+			time_increase_amount = 6.5
 			level_increased.emit(level)
 		#12:
 		45:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 9
+			time_increase_amount = 6.9
 			level_increased.emit(level)
 		#14:
 		55:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 9.5
+			time_increase_amount = 6
 			level_increased.emit(level)
 
 func _move_active_dot():
@@ -268,6 +268,9 @@ func _deactivate_all_dots():
 		dot._reset_mouse_line()
 
 func _increase_score():
+	_set_green_line()
+	await get_tree().create_timer(.3).timeout
+	#self.modulate(Color = )
 	score += 1
 	_increase_gen_count()
 	score_increased.emit(score)
@@ -282,7 +285,7 @@ func _increase_score():
 	await get_tree().create_timer(.1).timeout
 
 	_reset_to_new_pattern(false)
-	
+	_reset_line()
 		
 func _reset_to_new_pattern(decrease_time:bool):
 	_reset_neighbor_status()
@@ -298,3 +301,20 @@ func _reset_to_new_pattern(decrease_time:bool):
 	if decrease_time:
 		print("TIME DECREASED")
 		timer -= time_increase_amount
+		
+func _set_green_line():
+	for dot in user_guess:
+		dot.update_color(Color.DARK_BLUE)
+		dot.update_dot_color(Color.DARK_BLUE)
+func _set_red_line():
+	for dot in user_guess:
+		dot.update_color(Color.RED)
+		dot.update_dot_color(Color.RED)
+
+func _reset_line():
+	var dot_color = Color(1,1,1,1)
+	for dot in user_guess:
+		dot.update_color(Color.ORANGE)
+		
+		dot.update_dot_color(dot_color)
+		

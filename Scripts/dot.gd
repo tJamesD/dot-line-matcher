@@ -23,12 +23,15 @@ func _ready():
 	#line.scale = Vector2(1.0/ scale.x, 1.0/scale.y)
 	line2dtest.width = 150
 	line2dtest.z_index = 1
-	line2dtest.default_color = Color.ORANGE
+
+	var line_color = Color.ORANGE
+	var semi_transparent = Color(line_color.r, line_color.g, line_color.b, 0.75)
+	line2dtest.default_color = line_color
 	add_child(line2dtest)
 	
 	line_to_mouse.width = 150
 	line_to_mouse.z_index = 1
-	line_to_mouse.default_color = Color.ORANGE
+	line_to_mouse.default_color = line_color
 	add_child(line_to_mouse)
 	
 
@@ -58,8 +61,15 @@ func _check_solution():
 		added_to_user_guess.emit()
 		
 
-
-#func _on_mouse_exited() -> void:
+func update_color(color: Color):
+	line2dtest.default_color = color
+	line_to_mouse.default_color = color
+	#self.modulate = color
+	
+func update_dot_color(color : Color):
+	sprite.modulate = Color(1,1,1,1)
+	sprite.modulate = color
+##func _on_mouse_exited() -> void:
 	#pass
 	##sprite.modulate = Color(1,1,1,1)
 	

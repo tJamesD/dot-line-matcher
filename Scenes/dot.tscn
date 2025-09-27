@@ -9,6 +9,9 @@ radius = 375.533
 [node name="Dot" type="Area2D" groups=["Dot"]]
 script = ExtResource("1_wye70")
 
+[node name="Line2D" type="Line2D" parent="."]
+scale = Vector2(0.75, 0.75)
+
 [node name="Circle" type="Sprite2D" parent="."]
 z_index = 2
 scale = Vector2(0.75, 0.75)
