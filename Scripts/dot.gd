@@ -32,45 +32,16 @@ func _ready():
 	add_child(line_to_mouse)
 	
 
-func _on_mouse_entered() -> void:
-	if dot_manager.draw_allowed:
-		#mouse_active_dot = true
-		_activate()
-		#current_dot.emit(self)
-		if dot_manager.user_guess.count(self) == 0:
-			dot_manager.user_guess.append(self)
-			#print("SELFCHECK: " + str(dot_manager.user_guess))
-			_check_solution()
+#func _on_mouse_entered() -> void:
+	#if dot_manager.draw_allowed:
+		##mouse_active_dot = true
+		#_activate()
+		##current_dot.emit(self)
+		#if dot_manager.user_guess.count(self) == 0:
+			#dot_manager.user_guess.append(self)
+			##print("SELFCHECK: " + str(dot_manager.user_guess))
+			#_check_solution()
 
-#func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	#if not dot_manager.draw_allowed:
-		#return
-## PC: hover/move with button held down
-	#elif event is InputEventMouseMotion:
-		#print("AAAA")
-		#_handle_activation()
-	## PC: click
-	#elif event is InputEventMouseButton and event.pressed:
-		#print("BBBB")
-		#_handle_activation()
-#
-	## Mobile: tap/hold
-	#elif event is InputEventScreenTouch and event.pressed:
-		#print("CCCC")
-		#_handle_activation()
-#
-	## Mobile: drag across
-	#elif event is InputEventScreenDrag:
-		#print("DDDD")
-		#_handle_activation()
-#
-#
-#func _handle_activation() -> void:
-	#_activate()
-#
-	#if dot_manager.user_guess.count(self) == 0:
-		#dot_manager.user_guess.append(self)
-		#_check_solution()
 func _check_solution():
 	var index : int = 0
 	for dot in dot_manager.user_guess:
@@ -88,9 +59,9 @@ func _check_solution():
 		
 
 
-func _on_mouse_exited() -> void:
-	pass
-	#sprite.modulate = Color(1,1,1,1)
+#func _on_mouse_exited() -> void:
+	#pass
+	##sprite.modulate = Color(1,1,1,1)
 	
 func _activate() -> void:
 	sprite.modulate = Color(0.89,0.49,0,1)
@@ -146,3 +117,34 @@ func _reset_mouse_line():
 func _enable_line():
 	pass
 	#line2dtest.visible = true
+
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if not dot_manager.draw_allowed:
+		return
+# PC: hover/move with button held down
+	elif event is InputEventMouseMotion:
+		print("AAAA")
+		_handle_activation()
+	# PC: click
+	elif event is InputEventMouseButton and event.pressed:
+		print("BBBB")
+		_handle_activation()
+
+	# Mobile: tap/hold
+	elif event is InputEventScreenTouch and event.pressed:
+		print("CCCC")
+		_handle_activation()
+
+	# Mobile: drag across
+	elif event is InputEventScreenDrag:
+		print("DDDD")
+		_handle_activation()
+
+
+func _handle_activation() -> void:
+	_activate()
+
+	if dot_manager.user_guess.count(self) == 0:
+		dot_manager.user_guess.append(self)
+		_check_solution()
