@@ -10,6 +10,8 @@ signal wrong_pattern(inverse_time:bool)
 signal correct_pattern
 signal added_to_user_guess
 
+var mouse_motion_count = 0
+
 var mouse_active_dot : bool = false
 #signal current_dot(dot :Dot)
 
@@ -47,6 +49,7 @@ func _ready():
 
 func _check_solution():
 	var index : int = 0
+	print("USER GUESSES2: " + str(dot_manager.user_guess))
 	for dot in dot_manager.user_guess:
 		#print("USER_GUESS NAME: " + dot.name + " PATTERNAME: " + dot_manager.pattern[index].name)
 		if dot != dot_manager.pattern[index]:
@@ -56,10 +59,10 @@ func _check_solution():
 		index+=1
 	
 	if len(dot_manager.pattern) == len(dot_manager.user_guess):
+		dot_manager.state = dot_manager.GameState.GUESS_FINISHED
 		correct_pattern.emit()
 	elif (len(dot_manager.user_guess) > 0 ):
 		added_to_user_guess.emit()
-		
 
 func update_color(color: Color):
 	line2dtest.default_color = color
@@ -67,7 +70,7 @@ func update_color(color: Color):
 	#self.modulate = color
 	
 func update_dot_color(color : Color):
-	sprite.modulate = Color(1,1,1,1)
+	#sprite.modulate = Color(1,1,1,1)
 	sprite.modulate = color
 ##func _on_mouse_exited() -> void:
 	#pass
@@ -122,6 +125,8 @@ func _reset_mouse_line():
 	line_to_mouse.clear_points()
 	mouse_active_dot = false
 	
+func _reset_mouse_motion_count():
+	mouse_motion_count = 0
 	
 
 func _enable_line():
@@ -130,31 +135,37 @@ func _enable_line():
 
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if not dot_manager.draw_allowed:
+	if dot_manager.state != dot_manager.GameState.GUESSING or dot_manager.guess_finished:
 		return
-# PC: hover/move with button held down
-	elif event is InputEventMouseMotion:
+	#if (not dot_manager.draw_allowed) or dot_manager.guess_finished:
+		#return
+	# PC: hover/move with button held down
+	elif event is InputEventMouseMotion and mouse_motion_count <1:
+		## remove moust_motion_count
+		mouse_motion_count += 1;
 		print("AAAA")
 		_handle_activation()
 	# PC: click
 	elif event is InputEventMouseButton and event.pressed:
-		print("BBBB")
+		#print("BBBB")
 		_handle_activation()
 
 	# Mobile: tap/hold
 	elif event is InputEventScreenTouch and event.pressed:
-		print("CCCC")
+		#print("CCCC")
 		_handle_activation()
 
 	# Mobile: drag across
 	elif event is InputEventScreenDrag:
-		print("DDDD")
+		#print("DDDD")
 		_handle_activation()
 
 
 func _handle_activation() -> void:
-	_activate()
+	if len(dot_manager.user_guess) < dot_manager.gen_length:
+		_activate()
 
-	if dot_manager.user_guess.count(self) == 0:
-		dot_manager.user_guess.append(self)
-		_check_solution()
+		if dot_manager.user_guess.count(self) == 0:
+			dot_manager.user_guess.append(self)
+			print("CHECKSOLUTION")
+			_check_solution()

@@ -1,5 +1,9 @@
 extends Node2D
 
+enum GameState {ANIMATE, GUESSING, GUESS_FINISHED }
+
+@onready var state : GameState = GameState.ANIMATE
+
 @onready var dot_array
 @onready var pattern
 @onready var user_guess = []
@@ -37,6 +41,9 @@ var curr_length : int = 0
 var decrease_timer = false
 var level = 1;
 
+var guess_finished = false
+var reset_bool = false
+
 func _ready():
 	dot_array = [dot0, dot1, dot2, dot3, dot4, dot5, dot6, dot7, dot8]
 	dot_array[0]._set_neighbors([dot1, dot3, dot4])
@@ -54,17 +61,33 @@ func _ready():
 		dot.connect("correct_pattern", Callable(self,"_increase_score"))
 		dot.connect("added_to_user_guess", Callable(self,"_move_draw_window"),CONNECT_DEFERRED)
 		dot.connect("added_to_user_guess", Callable(self,"_move_active_dot"),CONNECT_DEFERRED)
-		#dot.connect("current_dot", Callable(self,"_draw_line_to_mouse"))
 	
-	#dot_array[2]._draw_to_neighbor(dot_array[4])
+	_start_round()
 	
-	#_generate_pattern()
-	#for dot in pattern:
-		#dot._activate()
-	#second_tracker += Time.get_unix_time_from_system()
+func _start_round() -> void:
+	while curr_length != gen_length:
+		_generate_pattern()
+	_run_animation()
+
+func _run_animation():
+	state = GameState.ANIMATE
+	var prev_dot = null	
+	for dot in pattern:
+		dot.update_color((Color(0.89,0.49,0,1)))
+		if prev_dot != null:
+			dot._draw_to_neighbor(prev_dot)
+			dot._enable_line()
+		prev_dot = dot
+		dot._activate();
+		await get_tree().create_timer(animation_timer).timeout
+	_deactivate_all_dots()
+	draw_allowed = true
+	curr_length = 0
+	state = GameState.GUESSING
+	
 		
 func _process(delta: float) -> void:
-	
+	## Update Tiemr
 	second_tracker += delta
 	if second_tracker >= 1.0:
 		#print(timer)
@@ -76,7 +99,34 @@ func _process(delta: float) -> void:
 			
 		timer_update.emit(timer)
 	
+	match state:
+		GameState.ANIMATE:
+			pass
+		GameState.GUESSING:
+			_draw_line_to_mouse()
+		GameState.GUESS_FINISHED:
+			#if active_dot != null:
+				#active_dot._reset_mouse_line()
+				#active_dot = null
+			#dot_1_index = 0
+			#dot_2_index = 0
+			pass
+		
+func _old_process(delta: float) -> void:
+	#Update Timer
+	second_tracker += delta
+	if second_tracker >= 1.0:
+		#print(timer)
+		second_tracker = 0
+		timer -= 1
+		if timer <= 0:
+			get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+			SaveGames.add_score(score,"Tim")
+			
+		timer_update.emit(timer)
+	# Draw Pattern
 	if animate:
+		#print("animate")
 		animate = false
 		for i in range(1):
 			while curr_length != gen_length:
@@ -93,9 +143,69 @@ func _process(delta: float) -> void:
 			draw_allowed = true
 			curr_length = 0
 	if draw_allowed:
-		#var pointer_pos = get_global_mouse_position()
+		print("draw")
 		_draw_line_to_mouse()
+	if guess_finished:
+		print("solution" + str(guess_finished))
+		#active_dot = null
+		if active_dot != null:
+			active_dot._reset_mouse_line()
+			active_dot = null
+		for dot in user_guess:
+			dot._reset_line()
 		
+		#draw_allowed = false
+		_draw_good_bad_guess()
+		await get_tree().create_timer(5.0).timeout
+		if(guess_finished):
+			print("POST WAIT")
+			guess_finished = false
+			_reset_to_new_pattern(reset_bool)
+		#guess_finished = false
+		
+		## this should be called reset_time_penalty bool or something
+		#_reset_to_new_pattern(reset_bool)
+		
+func _draw_pattern(delta: float) -> void:
+	if animate:
+		#print("animate")
+		for i in range(1):
+			while curr_length != gen_length:
+				_generate_pattern()
+			var prev_dot = null	
+			for dot in pattern:
+				if prev_dot != null:
+					dot._draw_to_neighbor(prev_dot)
+					dot._enable_line()
+				prev_dot = dot
+				dot._activate();
+				await get_tree().create_timer(animation_timer).timeout
+			_deactivate_all_dots()
+		
+			curr_length = 0
+		animate = false
+		state = GameState.GUESSING
+
+func _draw_good_bad_guess():
+	#draw_allowed = false
+	var prev_dot = null
+	for dot in pattern:
+		dot.update_dot_color(Color.DEEP_PINK)
+		dot.update_color(Color.DEEP_PINK)
+		if prev_dot != null:
+			dot._draw_to_neighbor(prev_dot)
+			dot._enable_line()
+		prev_dot = dot
+		#dot._activate();
+		
+	#get_tree().create_timer(5.0).timeout
+	#state = GameState.ANIMATE
+	
+	#_reset_to_new_pattern(reset_bool)
+	#_start_round()
+	#_deactivate_all_dots()
+			
+
 func _increase_gen_count():
 	match score:
 		5:
@@ -163,46 +273,12 @@ func _move_draw_window():
 		#print("DOt1_1: " + str(dot_1_index) + "DOT2_2: " + str(dot_2_index))
 		user_guess[dot_1_index]._draw_to_neighbor(user_guess[dot_2_index])
 
-	
-#func _search_mouse_active_dot() -> Dot:
-	#
-	#for dot in dot_array:
-		#if dot.mouse_active_dot:
-			#return dot
-	#return null
-	
-
-
-
-func _user_guess_index_checker():
-	pass
-	
-
 func _draw_line_to_mouse():
-	#var dot = _search_mouse_active_dot()
-	#var dot = null
-	#
-	#var dot_1 = null
-	#var dot_2 = null
-	#
-	#if dot_1_index != null:
-		#dot_1 = user_guess[dot_1_index]
-	#print(dot)
 	if active_dot != null:
 		if(debug_counter % 100 == 0):
 			pass
 			#print("LINE DOT: " + active_dot.name)
 		#debug_counter += 1
-		#print(dot.position)
-		#print(get_viewport().get_mouse_position())
-		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
-		#dot.line_to_mouse.global_position = Vector2.ZERO
-		#dot.line_to_mouse.points = [dot.global_position, get_viewport().get_mouse_position()]
-		#dot.line_to_mouse.global_position = Vector2.ZERO
-		#dot.line_to_mouse.points = [dot.position, get_viewport().get_mouse_position()]
-		
-		#var local_mouse = dot.get_parent().to_local(get_viewport().get_mouse_position())
-		#dot.line_to_mouse.points = [dot.global_position, get_global_mouse_position()]
 		var start_local = active_dot.to_local(active_dot.global_position)
 		if get_viewport() != null: 
 			var end_local   = active_dot.to_local(get_viewport().get_mouse_position())
@@ -266,10 +342,12 @@ func _deactivate_all_dots():
 		dot._deactivate()
 		dot._reset_line()
 		dot._reset_mouse_line()
+		dot._reset_mouse_motion_count()
+		
 
 func _increase_score():
-	_set_green_line()
-	await get_tree().create_timer(.3).timeout
+	#_set_green_line()
+	#await get_tree().create_timer(.3).timeout
 	#self.modulate(Color = )
 	score += 1
 	_increase_gen_count()
@@ -282,12 +360,25 @@ func _increase_score():
 	_move_draw_window()
 	active_dot._reset_mouse_line()
 	active_dot = null
-	await get_tree().create_timer(.1).timeout
-
-	_reset_to_new_pattern(false)
-	_reset_line()
-		
+	await get_tree().create_timer(.3).timeout
+	
+	draw_allowed = false
+	guess_finished = true
+	state = GameState.GUESS_FINISHED
+	reset_bool = false
+	_draw_good_bad_guess()
+	var timer = get_tree().create_timer(.35)
+	timer.timeout.connect(_on_post_guess)
+	#_reset_to_new_pattern(false)
+	#_reset_line()
+	
+func _on_post_guess():
+	_reset_to_new_pattern(reset_bool)	
+	_start_round()
 func _reset_to_new_pattern(decrease_time:bool):
+	
+	#_draw_good_bad_guess()
+	
 	_reset_neighbor_status()
 	_deactivate_all_dots()
 	dot_1_index = 0
@@ -296,25 +387,26 @@ func _reset_to_new_pattern(decrease_time:bool):
 	user_guess.clear()
 	animate = true
 	draw_allowed = false
+	guess_finished =false
 	active_dot = null
 	
 	if decrease_time:
 		print("TIME DECREASED")
 		timer -= time_increase_amount
 		
-func _set_green_line():
-	for dot in user_guess:
-		dot.update_color(Color.DARK_BLUE)
-		dot.update_dot_color(Color.DARK_BLUE)
-func _set_red_line():
-	for dot in user_guess:
-		dot.update_color(Color.RED)
-		dot.update_dot_color(Color.RED)
-
-func _reset_line():
-	var dot_color = Color(1,1,1,1)
-	for dot in user_guess:
-		dot.update_color(Color.ORANGE)
-		
-		dot.update_dot_color(dot_color)
+#func _set_green_line():
+	#for dot in user_guess:
+		#dot.update_color(Color.DARK_BLUE)
+		#dot.update_dot_color(Color.DARK_BLUE)
+#func _set_red_line():
+	#for dot in user_guess:
+		#dot.update_color(Color.RED)
+		#dot.update_dot_color(Color.RED)
+#
+#func _reset_line():
+	#var dot_color = Color(1,1,1,1)
+	#for dot in user_guess:
+		#dot.update_color(Color.ORANGE)
+		#
+		#dot.update_dot_color(dot_color)
 		
