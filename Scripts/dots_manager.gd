@@ -31,7 +31,7 @@ signal timer_update(amt :int)
 signal game_over()
 
 @export var timer = 30
-@export var time_increase_amount = 3
+@export var time_increase_amount = 2
 @onready var second_tracker = 0.0
 
 var animate = true
@@ -222,47 +222,57 @@ func _handle_bad_guess(badGuess : bool):
 
 func _increase_gen_count():
 	match score:
-		#5:
-		2:
+		5:
+		#2:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 3.9
+			time_increase_amount = 2
+			timer+=3
 			level_increased.emit(level)
-		4:
-		#10: 
+
+		#4:
+		10: 
 			gen_length +=1
 			level +=1
-			time_increase_amount = 4.5
+			time_increase_amount = 3
+			timer+=6
 			level_increased.emit(level)
-		6:
-		#15:
+		#6:
+		15:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 5.6
+			time_increase_amount = 4
+			timer+=9
 			level_increased.emit(level)
-		8:
-		#25:
+		#8:
+		25:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 5.6
+			time_increase_amount = 5
+			timer+=12
 			level_increased.emit(level)
-		10:
-		#35: 
-			gen_length +=1
-			level +=1
-			time_increase_amount = 6.5
-			level_increased.emit(level)
-		12:
-		#45:
-			gen_length +=1
-			level +=1
-			time_increase_amount = 6.9
-			level_increased.emit(level)
-		14:
-		#55:
+
+		#10:
+		35: 
 			gen_length +=1
 			level +=1
 			time_increase_amount = 6
+			timer+=12
+			level_increased.emit(level)
+
+		#12:
+		45:
+			gen_length +=1
+			level +=1
+			time_increase_amount = 7
+			timer+=15
+			level_increased.emit(level)
+		#14:
+		55:
+			gen_length +=1
+			level +=1
+			time_increase_amount = 8
+			timer+=18
 			level_increased.emit(level)
 
 func _move_active_dot():
@@ -404,8 +414,9 @@ func _reset_to_new_pattern():
 	active_dot = null
 	
 	if decrease_time:
+		decrease_time = false
 		print("TIME DECREASED")
-		timer -= time_increase_amount
+		timer -= time_increase_amount /2
 		
 #func _set_green_line():
 	#for dot in user_guess:
