@@ -19,6 +19,7 @@ enum GameState {ANIMATE, GUESSING, GUESS_FINISHED }
 @onready var score :int = 0
 @onready var dot_1_index = null
 @onready var dot_2_index = null
+@onready var decrease_time = false
 
 @onready var active_dot = null
 
@@ -42,7 +43,6 @@ var decrease_timer = false
 var level = 1;
 
 var guess_finished = false
-var reset_bool = false
 
 func _ready():
 	dot_array = [dot0, dot1, dot2, dot3, dot4, dot5, dot6, dot7, dot8]
@@ -57,7 +57,8 @@ func _ready():
 	dot_array[8]._set_neighbors([dot4, dot5, dot7])
 	
 	for dot in dot_array:
-		dot.connect("wrong_pattern", Callable(self,"_reset_to_new_pattern"))
+		#dot.connect("wrong_pattern", Callable(self,"_reset_to_new_pattern"))
+		dot.connect("wrong_pattern", Callable(self,"_handle_bad_guess"))
 		dot.connect("correct_pattern", Callable(self,"_increase_score"))
 		dot.connect("added_to_user_guess", Callable(self,"_move_draw_window"),CONNECT_DEFERRED)
 		dot.connect("added_to_user_guess", Callable(self,"_move_active_dot"),CONNECT_DEFERRED)
@@ -112,59 +113,59 @@ func _process(delta: float) -> void:
 			#dot_2_index = 0
 			pass
 		
-func _old_process(delta: float) -> void:
-	#Update Timer
-	second_tracker += delta
-	if second_tracker >= 1.0:
-		#print(timer)
-		second_tracker = 0
-		timer -= 1
-		if timer <= 0:
-			get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
-			SaveGames.add_score(score,"Tim")
-			
-		timer_update.emit(timer)
-	# Draw Pattern
-	if animate:
-		#print("animate")
-		animate = false
-		for i in range(1):
-			while curr_length != gen_length:
-				_generate_pattern()
-			var prev_dot = null	
-			for dot in pattern:
-				if prev_dot != null:
-					dot._draw_to_neighbor(prev_dot)
-					dot._enable_line()
-				prev_dot = dot
-				dot._activate();
-				await get_tree().create_timer(animation_timer).timeout
-			_deactivate_all_dots()
-			draw_allowed = true
-			curr_length = 0
-	if draw_allowed:
-		print("draw")
-		_draw_line_to_mouse()
-	if guess_finished:
-		print("solution" + str(guess_finished))
-		#active_dot = null
-		if active_dot != null:
-			active_dot._reset_mouse_line()
-			active_dot = null
-		for dot in user_guess:
-			dot._reset_line()
-		
-		#draw_allowed = false
-		_draw_good_bad_guess()
-		await get_tree().create_timer(5.0).timeout
-		if(guess_finished):
-			print("POST WAIT")
-			guess_finished = false
-			_reset_to_new_pattern(reset_bool)
-		#guess_finished = false
-		
-		## this should be called reset_time_penalty bool or something
-		#_reset_to_new_pattern(reset_bool)
+#func _old_process(delta: float) -> void:
+	##Update Timer
+	#second_tracker += delta
+	#if second_tracker >= 1.0:
+		##print(timer)
+		#second_tracker = 0
+		#timer -= 1
+		#if timer <= 0:
+			#get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+			#SaveGames.add_score(score,"Tim")
+			#
+		#timer_update.emit(timer)
+	## Draw Pattern
+	#if animate:
+		##print("animate")
+		#animate = false
+		#for i in range(1):
+			#while curr_length != gen_length:
+				#_generate_pattern()
+			#var prev_dot = null	
+			#for dot in pattern:
+				#if prev_dot != null:
+					#dot._draw_to_neighbor(prev_dot)
+					#dot._enable_line()
+				#prev_dot = dot
+				#dot._activate();
+				#await get_tree().create_timer(animation_timer).timeout
+			#_deactivate_all_dots()
+			#draw_allowed = true
+			#curr_length = 0
+	#if draw_allowed:
+		#print("draw")
+		#_draw_line_to_mouse()
+	#if guess_finished:
+		#print("solution" + str(guess_finished))
+		##active_dot = null
+		#if active_dot != null:
+			#active_dot._reset_mouse_line()
+			#active_dot = null
+		#for dot in user_guess:
+			#dot._reset_line()
+		#
+		##draw_allowed = false
+		#_draw_good_bad_guess(Color.OLIVE_DRAB)
+		#await get_tree().create_timer(5.0).timeout
+		#if(guess_finished):
+			#print("POST WAIT")
+			#guess_finished = false
+			#_reset_to_new_pattern()
+		##guess_finished = false
+		#
+		### this should be called reset_time_penalty bool or something
+		##_reset_to_new_pattern(reset_bool)
 		
 func _draw_pattern(delta: float) -> void:
 	if animate:
@@ -186,12 +187,12 @@ func _draw_pattern(delta: float) -> void:
 		animate = false
 		state = GameState.GUESSING
 
-func _draw_good_bad_guess():
+func _draw_good_bad_guess(color :Color):
 	#draw_allowed = false
 	var prev_dot = null
 	for dot in pattern:
-		dot.update_dot_color(Color.DEEP_PINK)
-		dot.update_color(Color.DEEP_PINK)
+		dot.update_dot_color(color)
+		dot.update_color(color)
 		if prev_dot != null:
 			dot._draw_to_neighbor(prev_dot)
 			dot._enable_line()
@@ -204,7 +205,18 @@ func _draw_good_bad_guess():
 	#_reset_to_new_pattern(reset_bool)
 	#_start_round()
 	#_deactivate_all_dots()
-			
+
+func _handle_bad_guess(badGuess : bool):
+	decrease_time = badGuess
+	draw_allowed = false
+	guess_finished = true
+	if active_dot != null:
+		active_dot._reset_mouse_line()
+		active_dot = null
+	state = GameState.GUESS_FINISHED
+	_draw_good_bad_guess(Color.DARK_RED)
+	var timer = get_tree().create_timer(.35)
+	timer.timeout.connect(_on_post_guess)
 
 func _increase_gen_count():
 	match score:
@@ -365,17 +377,16 @@ func _increase_score():
 	draw_allowed = false
 	guess_finished = true
 	state = GameState.GUESS_FINISHED
-	reset_bool = false
-	_draw_good_bad_guess()
+	_draw_good_bad_guess(Color.GOLD)
 	var timer = get_tree().create_timer(.35)
 	timer.timeout.connect(_on_post_guess)
 	#_reset_to_new_pattern(false)
 	#_reset_line()
 	
 func _on_post_guess():
-	_reset_to_new_pattern(reset_bool)	
+	_reset_to_new_pattern()	
 	_start_round()
-func _reset_to_new_pattern(decrease_time:bool):
+func _reset_to_new_pattern():
 	
 	#_draw_good_bad_guess()
 	
