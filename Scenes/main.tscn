@@ -104,6 +104,7 @@ expand_mode = 4
 
 [node name="DotManager" type="Node2D" parent="."]
 script = ExtResource("1_bo1nx")
+timer = 320
 animation_timer = 0.75
 
 [node name="Dot0" parent="DotManager" instance=ExtResource("1_jjgbg")]

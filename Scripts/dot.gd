@@ -77,7 +77,8 @@ func update_dot_color(color : Color):
 	##sprite.modulate = Color(1,1,1,1)
 	
 func _activate() -> void:
-	sprite.modulate = Color(0.89,0.49,0,1)
+	#sprite.modulate = Color(0.89,0.49,0,1
+	sprite.modulate = Color.ORANGE
 	activated = true
 	
 func _deactivate() -> void:

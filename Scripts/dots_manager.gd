@@ -74,7 +74,9 @@ func _run_animation():
 	state = GameState.ANIMATE
 	var prev_dot = null	
 	for dot in pattern:
-		dot.update_color((Color(0.89,0.49,0,1)))
+		dot.update_color(Color.ORANGE)
+		#dot.update_dot_color
+		#dot.update_color((Color(0.89,0.49,0,1)))
 		if prev_dot != null:
 			dot._draw_to_neighbor(prev_dot)
 			dot._enable_line()
@@ -214,50 +216,50 @@ func _handle_bad_guess(badGuess : bool):
 		active_dot._reset_mouse_line()
 		active_dot = null
 	state = GameState.GUESS_FINISHED
-	_draw_good_bad_guess(Color.DARK_RED)
+	_draw_good_bad_guess(Color.ORANGE_RED)
 	var timer = get_tree().create_timer(.35)
 	timer.timeout.connect(_on_post_guess)
 
 func _increase_gen_count():
 	match score:
-		5:
-		#2:
+		#5:
+		2:
 			gen_length +=1
 			level +=1
 			time_increase_amount = 3.9
 			level_increased.emit(level)
-		#4:
-		10: 
+		4:
+		#10: 
 			gen_length +=1
 			level +=1
 			time_increase_amount = 4.5
 			level_increased.emit(level)
-		#6:
-		15:
+		6:
+		#15:
 			gen_length +=1
 			level +=1
 			time_increase_amount = 5.6
 			level_increased.emit(level)
-		#8:
-		25:
+		8:
+		#25:
 			gen_length +=1
 			level +=1
 			time_increase_amount = 5.6
 			level_increased.emit(level)
-		#10:
-		35: 
+		10:
+		#35: 
 			gen_length +=1
 			level +=1
 			time_increase_amount = 6.5
 			level_increased.emit(level)
-		#12:
-		45:
+		12:
+		#45:
 			gen_length +=1
 			level +=1
 			time_increase_amount = 6.9
 			level_increased.emit(level)
-		#14:
-		55:
+		14:
+		#55:
 			gen_length +=1
 			level +=1
 			time_increase_amount = 6
