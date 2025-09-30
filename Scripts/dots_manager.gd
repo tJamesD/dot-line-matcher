@@ -24,6 +24,7 @@ enum GameState {ANIMATE, GUESSING, GUESS_FINISHED }
 @onready var active_dot = null
 
 @onready var debug_counter =0
+@export  var timer_division_amount = 2.0
 
 signal score_increased(amt :int)
 signal level_increased(level :int)
@@ -31,7 +32,7 @@ signal timer_update(amt :int)
 signal game_over()
 
 @export var timer = 30
-@export var time_increase_amount = 2
+@export var time_increase_amount : float = 1.5
 @onready var second_tracker = 0.0
 
 var animate = true
@@ -226,54 +227,65 @@ func _increase_gen_count():
 		#2:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 2
-			timer+=3
+			time_increase_amount = 2.6
+			timer+=4.0
 			level_increased.emit(level)
 
 		#4:
 		10: 
 			gen_length +=1
 			level +=1
-			time_increase_amount = 3
-			timer+=6
+			time_increase_amount = 3.7
+			timer+=4.0
 			level_increased.emit(level)
 		#6:
 		15:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 4
-			timer+=9
+			time_increase_amount = 4.8
+			timer+=4.0
+			timer_division_amount = 1.5
 			level_increased.emit(level)
+			
 		#8:
 		25:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 5
-			timer+=12
+			time_increase_amount = 5.9
+			timer+=4.0
 			level_increased.emit(level)
 
 		#10:
 		35: 
 			gen_length +=1
 			level +=1
-			time_increase_amount = 6
-			timer+=12
+			time_increase_amount = 7.0
+			timer+=4.0
+			timer_division_amount = 1.25
 			level_increased.emit(level)
+
 
 		#12:
 		45:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 7
-			timer+=15
+			time_increase_amount = 8.1
+			timer+=5.0
+			animation_timer -= 0.05
 			level_increased.emit(level)
+
 		#14:
 		55:
 			gen_length +=1
 			level +=1
-			time_increase_amount = 8
-			timer+=18
+			time_increase_amount = 9.2
+			timer+=5
+			animation_timer -= 0.05
+			timer_division_amount = 1.0
 			level_increased.emit(level)
+
+			
+
 
 func _move_active_dot():
 	if active_dot != null :
@@ -416,7 +428,7 @@ func _reset_to_new_pattern():
 	if decrease_time:
 		decrease_time = false
 		print("TIME DECREASED")
-		timer -= time_increase_amount /2
+		timer -= time_increase_amount / timer_division_amount
 		
 #func _set_green_line():
 	#for dot in user_guess:
