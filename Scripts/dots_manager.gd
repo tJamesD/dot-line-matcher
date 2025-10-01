@@ -225,65 +225,90 @@ func _increase_gen_count():
 	match score:
 		5:
 		#2:
+			#level2
 			gen_length +=1
 			level +=1
-			time_increase_amount = 2.6
-			timer+=4.0
+			time_increase_amount = 2.15
+			timer+=10
 			level_increased.emit(level)
 
 		#4:
 		10: 
+			#level3
 			gen_length +=1
 			level +=1
-			time_increase_amount = 3.7
-			timer+=4.0
+			time_increase_amount = 2.75
+			timer+=10
 			level_increased.emit(level)
 		#6:
 		15:
+			#level4
 			gen_length +=1
 			level +=1
-			time_increase_amount = 4.8
-			timer+=4.0
+			time_increase_amount = 3.35
+			timer+=15
 			timer_division_amount = 1.5
 			level_increased.emit(level)
 			
 		#8:
 		25:
+			#level5
 			gen_length +=1
 			level +=1
-			time_increase_amount = 5.9
-			timer+=4.0
+			time_increase_amount = 3.95
+			timer+=20
 			level_increased.emit(level)
 
 		#10:
 		35: 
+			#level6
 			gen_length +=1
 			level +=1
-			time_increase_amount = 7.0
-			timer+=4.0
+			time_increase_amount = 4.55
+			timer+=20
 			timer_division_amount = 1.25
 			level_increased.emit(level)
 
 
 		#12:
 		45:
+			#level 7
 			gen_length +=1
 			level +=1
-			time_increase_amount = 8.1
-			timer+=5.0
+			time_increase_amount = 4.75
+			timer+=25
 			animation_timer -= 0.05
 			level_increased.emit(level)
 
 		#14:
 		55:
+			#level 8
 			gen_length +=1
 			level +=1
-			time_increase_amount = 9.2
-			timer+=5
+			time_increase_amount = 4.85
+			timer+=40
 			animation_timer -= 0.05
 			timer_division_amount = 1.0
 			level_increased.emit(level)
-
+			
+		65:
+			level +=1
+			time_increase_amount = 4.5
+			animation_timer -= 0.05
+			timer_division_amount = .75
+			level_increased.emit(level)
+		75:
+			level +=1
+			time_increase_amount = 4.25
+			animation_timer -= 0.05
+			timer_division_amount = .5
+			level_increased.emit(level)
+		85:
+			level +=1
+			time_increase_amount = 4.0
+			animation_timer -= 0.05
+			timer_division_amount = .25
+			level_increased.emit(level)
 			
 
 
