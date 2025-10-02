@@ -51,3 +51,10 @@ func _update_background_color(amt : int):
 			
 			
 			
+
+
+
+func _on_quit_pressed() -> void:
+	##TODO - This really SHould be pause, and then provide settings
+	## quit retry etc.
+	get_tree().change_scene_to_file("res://Scenes/menu.tscn")

@@ -88,6 +88,20 @@ label_settings = SubResource("LabelSettings_6bp64")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Quit" type="Button" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -540.0
+offset_top = -150.0
+offset_right = 540.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 80
+text = "Quit"
+
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -172,3 +186,5 @@ position = Vector2(821.5, 1300)
 scale = Vector2(0.184176, 0.184176)
 
 [node name="Main" type="Node2D" parent="."]
+
+[connection signal="pressed" from="CanvasLayer/Quit" to="CanvasLayer" method="_on_quit_pressed"]
