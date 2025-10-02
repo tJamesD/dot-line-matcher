@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var level_label = $Level
 @onready var timer_label = $Timer
 @onready var background = $"../Background/BackTexture"
+@onready var streak_label = $Streak
 
 func _ready():
 	dot_manager.connect("score_increased", Callable(self,"_update_score_label"))
@@ -12,6 +13,8 @@ func _ready():
 	dot_manager.connect("level_increased", Callable(self,"_update_background_color"))
 	dot_manager.connect("timer_update", Callable(self,"_update_timer_label"))
 	#background.modulate = Color.from_hsv(160.0/360.0,70/100.0,40/100.0,1)
+	
+	dot_manager.connect("streak_change", Callable(self,"_update_streak_label"))
 func _update_score_label(amt : int):
 	#print("SIGNAL REIECVED")
 	score_label.text = "Score: " + str(amt)
@@ -22,6 +25,10 @@ func _update_level_label(amt : int):
 
 func _update_timer_label(amt :int):
 	timer_label.text = "Time: " + str(amt)
+
+func _update_streak_label(amt :int):
+	streak_label.text = "Streak: " + str(amt)
+	
 
 func _update_background_color(amt : int):
 	print("CALLED UPDATE BACKGROUND COLOR: " + str(amt))

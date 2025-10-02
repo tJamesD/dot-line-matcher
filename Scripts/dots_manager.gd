@@ -25,13 +25,17 @@ enum GameState {ANIMATE, GUESSING, GUESS_FINISHED }
 
 @onready var debug_counter =0
 @export  var timer_division_amount = 2.0
+@onready var streak = 0
+@onready var best_streak = 0
+
+signal streak_change()
 
 signal score_increased(amt :int)
 signal level_increased(level :int)
 signal timer_update(amt :int)
 signal game_over()
 
-@export var timer = 30
+@export var timer = 30.0
 @export var time_increase_amount : float = 1.5
 @onready var second_tracker = 0.0
 
@@ -99,7 +103,7 @@ func _process(delta: float) -> void:
 		timer -= 1
 		if timer <= 0:
 			get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
-			SaveGames.add_score(score,"Tim")
+			SaveGames.add_score(score,best_streak)
 			
 		timer_update.emit(timer)
 	
@@ -109,66 +113,7 @@ func _process(delta: float) -> void:
 		GameState.GUESSING:
 			_draw_line_to_mouse()
 		GameState.GUESS_FINISHED:
-			#if active_dot != null:
-				#active_dot._reset_mouse_line()
-				#active_dot = null
-			#dot_1_index = 0
-			#dot_2_index = 0
 			pass
-		
-#func _old_process(delta: float) -> void:
-	##Update Timer
-	#second_tracker += delta
-	#if second_tracker >= 1.0:
-		##print(timer)
-		#second_tracker = 0
-		#timer -= 1
-		#if timer <= 0:
-			#get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
-			#SaveGames.add_score(score,"Tim")
-			#
-		#timer_update.emit(timer)
-	## Draw Pattern
-	#if animate:
-		##print("animate")
-		#animate = false
-		#for i in range(1):
-			#while curr_length != gen_length:
-				#_generate_pattern()
-			#var prev_dot = null	
-			#for dot in pattern:
-				#if prev_dot != null:
-					#dot._draw_to_neighbor(prev_dot)
-					#dot._enable_line()
-				#prev_dot = dot
-				#dot._activate();
-				#await get_tree().create_timer(animation_timer).timeout
-			#_deactivate_all_dots()
-			#draw_allowed = true
-			#curr_length = 0
-	#if draw_allowed:
-		#print("draw")
-		#_draw_line_to_mouse()
-	#if guess_finished:
-		#print("solution" + str(guess_finished))
-		##active_dot = null
-		#if active_dot != null:
-			#active_dot._reset_mouse_line()
-			#active_dot = null
-		#for dot in user_guess:
-			#dot._reset_line()
-		#
-		##draw_allowed = false
-		#_draw_good_bad_guess(Color.OLIVE_DRAB)
-		#await get_tree().create_timer(5.0).timeout
-		#if(guess_finished):
-			#print("POST WAIT")
-			#guess_finished = false
-			#_reset_to_new_pattern()
-		##guess_finished = false
-		#
-		### this should be called reset_time_penalty bool or something
-		##_reset_to_new_pattern(reset_bool)
 		
 func _draw_pattern(delta: float) -> void:
 	if animate:
@@ -200,14 +145,6 @@ func _draw_good_bad_guess(color :Color):
 			dot._draw_to_neighbor(prev_dot)
 			dot._enable_line()
 		prev_dot = dot
-		#dot._activate();
-		
-	#get_tree().create_timer(5.0).timeout
-	#state = GameState.ANIMATE
-	
-	#_reset_to_new_pattern(reset_bool)
-	#_start_round()
-	#_deactivate_all_dots()
 
 func _handle_bad_guess(badGuess : bool):
 	decrease_time = badGuess
@@ -245,9 +182,10 @@ func _increase_gen_count():
 			#level4
 			gen_length +=1
 			level +=1
-			time_increase_amount = 3.35
+			time_increase_amount = 3.1
 			timer+=15
 			timer_division_amount = 1.5
+			animation_timer -= 0.05
 			level_increased.emit(level)
 			
 		#8:
@@ -255,7 +193,7 @@ func _increase_gen_count():
 			#level5
 			gen_length +=1
 			level +=1
-			time_increase_amount = 3.95
+			time_increase_amount = 3.65
 			timer+=20
 			level_increased.emit(level)
 
@@ -264,7 +202,7 @@ func _increase_gen_count():
 			#level6
 			gen_length +=1
 			level +=1
-			time_increase_amount = 4.55
+			time_increase_amount = 4.95
 			timer+=20
 			timer_division_amount = 1.25
 			level_increased.emit(level)
@@ -285,8 +223,8 @@ func _increase_gen_count():
 			#level 8
 			gen_length +=1
 			level +=1
-			time_increase_amount = 4.85
-			timer+=40
+			time_increase_amount = 4.6
+			timer+=35
 			animation_timer -= 0.05
 			timer_division_amount = 1.0
 			level_increased.emit(level)
@@ -294,20 +232,43 @@ func _increase_gen_count():
 		65:
 			level +=1
 			time_increase_amount = 4.5
+			timer+=10
 			animation_timer -= 0.05
 			timer_division_amount = .75
 			level_increased.emit(level)
 		75:
 			level +=1
 			time_increase_amount = 4.25
+			timer+=5
 			animation_timer -= 0.05
 			timer_division_amount = .5
 			level_increased.emit(level)
 		85:
 			level +=1
+			timer+=5
 			time_increase_amount = 4.0
 			animation_timer -= 0.05
 			timer_division_amount = .25
+			level_increased.emit(level)
+		95:
+			level +=1
+			timer+=5
+			time_increase_amount = 3.5
+			animation_timer -= 0.05
+			timer_division_amount = .15
+			level_increased.emit(level)
+		100:
+			level +=1
+			time_increase_amount = 3.25
+			animation_timer -= 0.05
+			timer_division_amount = .10
+			level_increased.emit(level)
+		
+		105:
+			level +=1
+			time_increase_amount = 2.0
+			animation_timer -= 0.05
+			timer_division_amount = .05
 			level_increased.emit(level)
 			
 
@@ -411,6 +372,10 @@ func _increase_score():
 	#await get_tree().create_timer(.3).timeout
 	#self.modulate(Color = )
 	score += 1
+	streak += 1
+	if streak > best_streak:
+		best_streak = streak
+	streak_change.emit(streak)
 	_increase_gen_count()
 	score_increased.emit(score)
 	timer += time_increase_amount
@@ -451,6 +416,8 @@ func _reset_to_new_pattern():
 	active_dot = null
 	
 	if decrease_time:
+		streak = 0
+		streak_change.emit(streak)
 		decrease_time = false
 		print("TIME DECREASED")
 		timer -= time_increase_amount / timer_division_amount

@@ -6,21 +6,21 @@ extends Control
 
 func _ready():
 	
-	current_run_score_label.text = "Score: " + str(SaveGames.last_score)
+	current_run_score_label.text = "Score: " + str(SaveGames.last_score) +"\nStreak: " + str(SaveGames.last_best_streak)
 	SaveGames._load_scores()
 	var scores = SaveGames.get_keys()
 	
 	var scores_index = scores.size()
 	
 	while scores_index < 5:
-		scores.append(0)
+		scores.append({ "score" :0, "streak":0})
 		scores_index+=1
 			
-	data_label.text = "1: " + str(int(scores[0])) + "\n" + \
-					  "2: " + str(int(scores[1])) + "\n" + \
-					  "3: " + str(int(scores[2])) + "\n" + \
-					  "4: " + str(int(scores[3])) + "\n" + \
-					  "5: " + str(int(scores[4])) + "\n"
+	data_label.text = "1: " + str(int(scores[0]["score"])) + "/" + str(int(scores[0]["streak"])) + "\n" + \
+					  "2: " + str(int(scores[1]["score"])) + "/" + str(int(scores[1]["streak"])) + "\n" + \
+					  "3: " + str(int(scores[2]["score"])) + "/" + str(int(scores[2]["streak"])) + "\n" + \
+					  "4: " + str(int(scores[3]["score"])) + "/" + str(int(scores[3]["streak"])) + "\n" + \
+					  "5: " + str(int(scores[4]["score"])) + "/" + str(int(scores[4]["streak"])) + "\n"
 	
 
 
