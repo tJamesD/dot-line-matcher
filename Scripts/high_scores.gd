@@ -15,11 +15,11 @@ func _ready():
 		scores.append({ "score" :0, "streak":0})
 		scores_index+=1
 			
-	data_label.text = "1: " + str(int(scores[0]["score"])) + "/" + str(int(scores[0]["streak"])) + "\n" + \
-					  "2: " + str(int(scores[1]["score"])) + "/" + str(int(scores[1]["streak"])) + "\n" + \
-					  "3: " + str(int(scores[2]["score"])) + "/" + str(int(scores[2]["streak"])) + "\n" + \
-					  "4: " + str(int(scores[3]["score"])) + "/" + str(int(scores[3]["streak"])) + "\n" + \
-					  "5: " + str(int(scores[4]["score"])) + "/" + str(int(scores[4]["streak"])) + "\n"
+	data_label.text = "" + str(int(scores[0]["score"])) + "               " + str(int(scores[0]["streak"])) + "\n" + \
+					  "" + str(int(scores[1]["score"])) + "               " + str(int(scores[1]["streak"])) + "\n" + \
+					  "" + str(int(scores[2]["score"])) + "               " + str(int(scores[2]["streak"])) + "\n" + \
+					  "" + str(int(scores[3]["score"])) + "               " + str(int(scores[3]["streak"])) + "\n" + \
+					  "" + str(int(scores[4]["score"])) + "               " + str(int(scores[4]["streak"])) + "\n"
 
 func _on_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/menu.tscn")
