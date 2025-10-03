@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://btt8t0iqov2lk"]
+[gd_scene load_steps=13 format=3 uid="uid://btt8t0iqov2lk"]
 
 [ext_resource type="Script" uid="uid://dsb0gcdpokhbx" path="res://Scripts/dots_manager.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://ct0creunkhh4g" path="res://Scenes/dot.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bl2ua0htfp4e" path="res://Scenes/ui.gd" id="1_jjvhh"]
+[ext_resource type="StyleBox" uid="uid://i1f44l4e7ykf" path="res://Themes/hover.tres" id="2_21xkr"]
 [ext_resource type="Texture2D" uid="uid://ccpwo4pgaumwi" path="res://Assets/white.png" id="2_jjvhh"]
+[ext_resource type="StyleBox" uid="uid://dqwlebe23cnsu" path="res://Themes/normal_button.tres" id="2_kry3j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kry3j"]
 font_size = 80
@@ -88,7 +90,7 @@ label_settings = SubResource("LabelSettings_6bp64")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Quit" type="Button" parent="CanvasLayer"]
+[node name="Pause" type="Button" parent="CanvasLayer"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -100,7 +102,93 @@ offset_right = 540.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 80
-text = "Quit"
+text = "Pause"
+
+[node name="Pause Menu" type="Control" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="CanvasLayer/Pause Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -365.0
+offset_right = 540.0
+offset_bottom = -165.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = ExtResource("2_21xkr")
+theme_override_styles/hover_pressed = ExtResource("2_21xkr")
+theme_override_styles/hover = ExtResource("2_21xkr")
+theme_override_styles/normal = ExtResource("2_kry3j")
+text = "Resume"
+
+[node name="Main Menu" type="Button" parent="CanvasLayer/Pause Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -165.0
+offset_right = 540.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = ExtResource("2_21xkr")
+theme_override_styles/hover_pressed = ExtResource("2_21xkr")
+theme_override_styles/hover = ExtResource("2_21xkr")
+theme_override_styles/pressed = ExtResource("2_21xkr")
+theme_override_styles/normal = ExtResource("2_kry3j")
+text = "Main Menu"
+
+[node name="Retry" type="Button" parent="CanvasLayer/Pause Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = 35.0
+offset_right = 540.0
+offset_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = ExtResource("2_21xkr")
+theme_override_styles/hover_pressed = ExtResource("2_21xkr")
+theme_override_styles/hover = ExtResource("2_21xkr")
+theme_override_styles/pressed = ExtResource("2_21xkr")
+theme_override_styles/normal = ExtResource("2_kry3j")
+text = "Retry"
+
+[node name="Quit" type="Button" parent="CanvasLayer/Pause Menu"]
+layout_mode = 0
+offset_top = 1195.0
+offset_right = 1080.0
+offset_bottom = 1395.0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = ExtResource("2_21xkr")
+theme_override_styles/hover_pressed = ExtResource("2_21xkr")
+theme_override_styles/hover = ExtResource("2_21xkr")
+theme_override_styles/pressed = ExtResource("2_21xkr")
+theme_override_styles/normal = ExtResource("2_kry3j")
+text = "Quit
+"
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 1
@@ -187,4 +275,8 @@ scale = Vector2(0.184176, 0.184176)
 
 [node name="Main" type="Node2D" parent="."]
 
-[connection signal="pressed" from="CanvasLayer/Quit" to="CanvasLayer" method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause" to="CanvasLayer" method="_on_pause_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Menu/Resume" to="CanvasLayer" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Menu/Main Menu" to="CanvasLayer" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Menu/Retry" to="CanvasLayer" method="_on_retry_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Menu/Quit" to="CanvasLayer" method="_on_quit_pressed"]

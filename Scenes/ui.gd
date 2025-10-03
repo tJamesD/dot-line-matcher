@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var timer_label = $Timer
 @onready var background = $"../Background/BackTexture"
 @onready var streak_label = $Streak
+@onready var pause_menu = $"Pause Menu"
 
 func _ready():
 	dot_manager.connect("score_increased", Callable(self,"_update_score_label"))
@@ -54,7 +55,34 @@ func _update_background_color(amt : int):
 
 
 
-func _on_quit_pressed() -> void:
-	##TODO - This really SHould be pause, and then provide settings
-	## quit retry etc.
+#func _on_quit_pressed() -> void:
+	###TODO - This really SHould be pause, and then provide settings
+	### quit retry etc.
+	#get_tree().change_scene_to_file("res://Scenes/menu.tscn")
+
+
+func _on_pause_pressed() -> void:
+	pause_menu.visible = true
+	get_tree().paused = true
+
+
+func _on_resume_pressed() -> void:
+	pause_menu.visible = false
+	get_tree().paused = false
+
+
+func _on_retry_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+
+
+func _on_main_menu_pressed() -> void:
+	pause_menu.visible = false
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/menu.tscn")
+
+
+func _on_quit_pressed() -> void:
+	pause_menu.visible = false
+	get_tree().paused = false
+	get_tree().quit()
