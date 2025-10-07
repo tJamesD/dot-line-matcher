@@ -28,6 +28,9 @@ enum GameState {ANIMATE, GUESSING, GUESS_FINISHED }
 @onready var streak = 0
 @onready var best_streak = 0
 
+@onready var sfxPlayer = $"../SFX"
+@onready var sfxBool = true
+
 signal streak_change()
 
 signal score_increased(amt :int)
@@ -67,13 +70,20 @@ func _ready():
 		dot.connect("correct_pattern", Callable(self,"_increase_score"))
 		dot.connect("added_to_user_guess", Callable(self,"_move_draw_window"),CONNECT_DEFERRED)
 		dot.connect("added_to_user_guess", Callable(self,"_move_active_dot"),CONNECT_DEFERRED)
-	
+		dot.connect("playsfx", Callable(self,"_play_sfx"))
+		
 	_start_round()
 	
 func _start_round() -> void:
 	while curr_length != gen_length:
 		_generate_pattern()
 	_run_animation()
+
+func _play_sfx():
+	print("SIGNAL CAUGHT")
+	if sfxBool:
+		sfxPlayer.play()
+	
 
 func _run_animation():
 	state = GameState.ANIMATE

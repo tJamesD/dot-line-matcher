@@ -9,6 +9,7 @@ var neighbors = []
 signal wrong_pattern(inverse_time:bool)
 signal correct_pattern
 signal added_to_user_guess
+signal playsfx
 
 var mouse_motion_count = 0
 
@@ -49,11 +50,11 @@ func _ready():
 
 func _check_solution():
 	var index : int = 0
-	print("USER GUESSES2: " + str(dot_manager.user_guess))
+	#print("USER GUESSES2: " + str(dot_manager.user_guess))
 	for dot in dot_manager.user_guess:
 		#print("USER_GUESS NAME: " + dot.name + " PATTERNAME: " + dot_manager.pattern[index].name)
 		if dot != dot_manager.pattern[index]:
-			print("Wrong Guess!!!")
+			#print("Wrong Guess!!!")
 			wrong_pattern.emit(true)
 			return;
 		index+=1
@@ -144,7 +145,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	elif event is InputEventMouseMotion and mouse_motion_count <1:
 		## remove moust_motion_count
 		mouse_motion_count += 1;
-		print("AAAA")
+		#print("AAAA")
 		_handle_activation()
 	# PC: click
 	elif event is InputEventMouseButton and event.pressed:
@@ -167,6 +168,10 @@ func _handle_activation() -> void:
 		_activate()
 
 		if dot_manager.user_guess.count(self) == 0:
+			print("PREEMIT")
+			playsfx.emit()
+			print("POSTEMIT")
+
 			dot_manager.user_guess.append(self)
-			print("CHECKSOLUTION")
+			#print("CHECKSOLUTION")
 			_check_solution()

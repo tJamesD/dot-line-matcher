@@ -1,11 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://btt8t0iqov2lk"]
+[gd_scene load_steps=16 format=3 uid="uid://btt8t0iqov2lk"]
 
 [ext_resource type="Script" uid="uid://dsb0gcdpokhbx" path="res://Scripts/dots_manager.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://ct0creunkhh4g" path="res://Scenes/dot.tscn" id="1_jjgbg"]
-[ext_resource type="Script" uid="uid://bl2ua0htfp4e" path="res://Scenes/ui.gd" id="1_jjvhh"]
+[ext_resource type="Script" uid="uid://bl2ua0htfp4e" path="res://Scripts/ui.gd" id="1_jjvhh"]
 [ext_resource type="StyleBox" uid="uid://i1f44l4e7ykf" path="res://Themes/hover.tres" id="2_21xkr"]
 [ext_resource type="Texture2D" uid="uid://ccpwo4pgaumwi" path="res://Assets/white.png" id="2_jjvhh"]
 [ext_resource type="StyleBox" uid="uid://dqwlebe23cnsu" path="res://Themes/normal_button.tres" id="2_kry3j"]
+[ext_resource type="Script" uid="uid://ba3f2kut6dkxv" path="res://Scenes/audio_stream_player.gd" id="7_6bp64"]
+[ext_resource type="AudioStream" uid="uid://dju1hbjpruqe6" path="res://MUSIC/chime.mp3" id="7_344ge"]
+[ext_resource type="Script" uid="uid://k3k5j37hbomp" path="res://Scripts/sfx.gd" id="8_ynf5e"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kry3j"]
 font_size = 80
@@ -124,7 +127,7 @@ anchor_bottom = 0.5
 offset_left = -540.0
 offset_top = -565.0
 offset_right = 540.0
-offset_bottom = -265.0
+offset_bottom = -315.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 100
@@ -134,6 +137,48 @@ theme_override_styles/hover = ExtResource("2_21xkr")
 theme_override_styles/normal = ExtResource("2_kry3j")
 text = "Resume"
 
+[node name="Sound" type="Button" parent="CanvasLayer/Pause Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -315.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = ExtResource("2_21xkr")
+theme_override_styles/hover_pressed = ExtResource("2_21xkr")
+theme_override_styles/hover = ExtResource("2_21xkr")
+theme_override_styles/pressed = ExtResource("2_21xkr")
+theme_override_styles/normal = ExtResource("2_kry3j")
+text = "Sound:
+On"
+
+[node name="SFX" type="Button" parent="CanvasLayer/Pause Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -327.0
+offset_right = 540.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = ExtResource("2_21xkr")
+theme_override_styles/hover_pressed = ExtResource("2_21xkr")
+theme_override_styles/hover = ExtResource("2_21xkr")
+theme_override_styles/pressed = ExtResource("2_21xkr")
+theme_override_styles/normal = ExtResource("2_kry3j")
+text = "SFX:
+On"
+
 [node name="Main Menu" type="Button" parent="CanvasLayer/Pause Menu"]
 layout_mode = 1
 anchors_preset = 8
@@ -142,9 +187,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -540.0
-offset_top = -265.0
+offset_top = -65.0
 offset_right = 540.0
-offset_bottom = 35.0
+offset_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 100
@@ -163,9 +208,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -540.0
-offset_top = 35.0
+offset_top = 185.0
 offset_right = 540.0
-offset_bottom = 335.0
+offset_bottom = 435.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 100
@@ -184,9 +229,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -540.0
-offset_top = 335.0
+offset_top = 435.0
 offset_right = 540.0
-offset_bottom = 635.0
+offset_bottom = 685.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 100
@@ -281,10 +326,19 @@ z_index = 1
 position = Vector2(821.5, 1300)
 scale = Vector2(0.184176, 0.184176)
 
-[node name="Main" type="Node2D" parent="."]
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_344ge")
+script = ExtResource("8_ynf5e")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+script = ExtResource("7_6bp64")
 
 [connection signal="pressed" from="CanvasLayer/Pause" to="CanvasLayer" method="_on_pause_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause Menu/Resume" to="CanvasLayer" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Menu/Sound" to="CanvasLayer" method="_on_sound_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause Menu/SFX" to="CanvasLayer" method="_on_sfx_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause Menu/Main Menu" to="CanvasLayer" method="_on_main_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause Menu/Retry" to="CanvasLayer" method="_on_retry_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause Menu/Quit" to="CanvasLayer" method="_on_quit_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_finished"]
