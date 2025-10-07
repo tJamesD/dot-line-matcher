@@ -97,7 +97,7 @@ func _run_animation():
 			dot._enable_line()
 		prev_dot = dot
 		dot._activate();
-		await get_tree().create_timer(animation_timer).timeout
+		await get_tree().create_timer(animation_timer, false, true).timeout
 	_deactivate_all_dots()
 	draw_allowed = true
 	curr_length = 0

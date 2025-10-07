@@ -277,6 +277,7 @@ texture = SubResource("GradientTexture2D_jjgbg")
 expand_mode = 4
 
 [node name="DotManager" type="Node2D" parent="."]
+process_mode = 1
 script = ExtResource("1_bo1nx")
 time_increase_amount = 1.55
 animation_timer = 0.6
