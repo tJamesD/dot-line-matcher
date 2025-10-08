@@ -81,7 +81,7 @@ func _start_round() -> void:
 
 func _play_sfx():
 	print("SIGNAL CAUGHT")
-	if sfxBool:
+	if SettingsData.sfxBool:
 		sfxPlayer.play()
 	
 

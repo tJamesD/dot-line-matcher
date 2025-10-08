@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SaveGames="*res://Scripts/SaveGames.gd"
 Menu="*res://Scripts/menu.gd"
+SettingsData="*res://settings_data.gd"
 
 [display]
 

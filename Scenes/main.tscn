@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://i1f44l4e7ykf" path="res://Themes/hover.tres" id="2_21xkr"]
 [ext_resource type="Texture2D" uid="uid://ccpwo4pgaumwi" path="res://Assets/white.png" id="2_jjvhh"]
 [ext_resource type="StyleBox" uid="uid://dqwlebe23cnsu" path="res://Themes/normal_button.tres" id="2_kry3j"]
-[ext_resource type="Script" uid="uid://ba3f2kut6dkxv" path="res://Scenes/audio_stream_player.gd" id="7_6bp64"]
+[ext_resource type="Script" uid="uid://ba3f2kut6dkxv" path="res://Scripts/audio_stream_player.gd" id="7_6bp64"]
 [ext_resource type="AudioStream" uid="uid://dju1hbjpruqe6" path="res://MUSIC/chime.mp3" id="7_344ge"]
 [ext_resource type="Script" uid="uid://k3k5j37hbomp" path="res://Scripts/sfx.gd" id="8_ynf5e"]
 

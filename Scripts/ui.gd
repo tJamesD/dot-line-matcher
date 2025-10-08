@@ -95,20 +95,29 @@ func _on_quit_pressed() -> void:
 
 func _on_sound_pressed() -> void:
 	## will need to save to file.
-	if musicBool:
+	#if musicBool:
+	SettingsData._load_data()
+	if SettingsData.soundBool:
 		musicPlayer.stop()
 		soundLabel.text = "Sound:\nOff"
-		musicBool = false
+		SettingsData.soundBool = false
 	else:
-		musicBool = true
+		SettingsData.soundBool = true
+		#musicBool = true
 		musicPlayer.play()
 		soundLabel.text = "Sound:\nOn"
+	SettingsData._save_data()
 
 
 func _on_sfx_pressed() -> void:
-	if dot_manager.sfxBool == true:
-		dot_manager.sfxBool = false
+	#if dot_manager.sfxBool == true:
+	SettingsData._load_data()
+	if SettingsData.sfxBool == true:
+		#dot_manager.sfxBool = false
+		SettingsData.sfxBool = false
 		SFXLabel.text = "SFX:\nOff"
 	else:
-		dot_manager.sfxBool = true
+		SettingsData.sfxBool = true
+		#dot_manager.sfxBool = true
 		SFXLabel.text = "SFX:\nOn"
+	SettingsData._save_data()

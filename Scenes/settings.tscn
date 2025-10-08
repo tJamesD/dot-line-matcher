@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c2uwbsv280fi7"]
 
-[ext_resource type="Script" uid="uid://cjnabilv5ro84" path="res://Scenes/settings.gd" id="1_4geyq"]
+[ext_resource type="Script" uid="uid://cjnabilv5ro84" path="res://Scripts/settings.gd" id="1_4geyq"]
 [ext_resource type="Texture2D" uid="uid://ccpwo4pgaumwi" path="res://Assets/white.png" id="2_i44u3"]
 
 [sub_resource type="Gradient" id="Gradient_7u77a"]
@@ -47,32 +47,69 @@ texture = ExtResource("2_i44u3")
 expand_mode = 4
 
 [node name="Menu" type="Button" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_top = 1.0
-anchor_right = 0.497222
-anchor_bottom = 1.0
-offset_top = -1029.0
-offset_right = 543.0
-offset_bottom = -757.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -412.0
+offset_right = 540.0
+offset_bottom = -138.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 80
+theme_override_font_sizes/font_size = 100
 text = "Menu"
 metadata/_edit_use_anchors_ = true
 
+[node name="Sound" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -134.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Sound:
+On"
+
+[node name="SFX" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -134.0
+offset_right = 540.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "SFX:
+On"
+
 [node name="ResetHighScores" type="Button" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_top = 1.0
-anchor_right = 0.497222
-anchor_bottom = 1.0
-offset_top = -1301.0
-offset_right = 543.0
-offset_bottom = -1029.0
-grow_vertical = 0
-theme_override_font_sizes/font_size = 80
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = 144.0
+offset_right = 540.0
+offset_bottom = 418.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
 text = "Reset High Scores
 "
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="CanvasLayer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/Sound" to="." method="_on_sound_pressed"]
+[connection signal="pressed" from="CanvasLayer/SFX" to="." method="_on_sfx_pressed"]
 [connection signal="pressed" from="CanvasLayer/ResetHighScores" to="." method="_on_reset_high_scores_pressed"]
