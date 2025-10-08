@@ -21,6 +21,18 @@ func _ready():
 	#background.modulate = Color.from_hsv(160.0/360.0,70/100.0,40/100.0,1)
 	
 	dot_manager.connect("streak_change", Callable(self,"_update_streak_label"))
+	
+	SettingsData._load_data()
+	if SettingsData.soundBool:
+		soundLabel.text = "Sound:\nOn"
+	else:
+		soundLabel.text = "Sound:\nOff"
+	
+	if SettingsData.sfxBool:
+		SFXLabel.text = "SFX:\nOn"
+	else:
+		SFXLabel.text = "SFX:\nOff"
+		
 func _update_score_label(amt : int):
 	#print("SIGNAL REIECVED")
 	score_label.text = "Score: " + str(amt)
