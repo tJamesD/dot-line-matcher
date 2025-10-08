@@ -329,7 +329,7 @@ scale = Vector2(0.184176, 0.184176)
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_344ge")
-volume_db = -15.0
+volume_db = -10.0
 script = ExtResource("8_ynf5e")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
