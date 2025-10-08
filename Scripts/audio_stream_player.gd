@@ -23,6 +23,7 @@ var tracks_array=[
 var current_index = 0
 
 func play_track():
+	print("SOUDN BOOL: " + str(SettingsData.soundBool))
 	if SettingsData.soundBool:
 		stream = tracks_array[current_index]
 		volume_db = -20 

@@ -116,7 +116,7 @@ func _on_sound_pressed() -> void:
 	else:
 		SettingsData.soundBool = true
 		#musicBool = true
-		musicPlayer.play()
+		musicPlayer.play_track()
 		soundLabel.text = "Sound:\nOn"
 	SettingsData._save_data()
 
