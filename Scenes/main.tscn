@@ -30,11 +30,11 @@ font_size = 80
 shadow_size = 8
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="Gradient" id="Gradient_8gbba"]
+[sub_resource type="Gradient" id="Gradient_ynf5e"]
 colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jjgbg"]
-gradient = SubResource("Gradient_8gbba")
+gradient = SubResource("Gradient_ynf5e")
 width = 1080
 height = 1920
 fill_to = Vector2(0, 2)
@@ -329,6 +329,7 @@ scale = Vector2(0.184176, 0.184176)
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_344ge")
+volume_db = -15.0
 script = ExtResource("8_ynf5e")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

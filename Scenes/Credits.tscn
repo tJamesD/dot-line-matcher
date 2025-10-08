@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=3 uid="uid://cc1ac2rwwvfc"]
+
+[ext_resource type="Texture2D" uid="uid://ccpwo4pgaumwi" path="res://Assets/white.png" id="1_i8h6y"]
+[ext_resource type="Script" uid="uid://c216uum24nrmt" path="res://Scenes/credits.gd" id="1_xbebw"]
+
+[sub_resource type="Gradient" id="Gradient_8gbba"]
+colors = PackedColorArray(0.0915493, 0.324222, 0.413157, 1, 0.0486, 0.14277, 0.18, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xbebw"]
+gradient = SubResource("Gradient_8gbba")
+width = 1080
+height = 1920
+fill_to = Vector2(0, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_i8h6y"]
+font_size = 39
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xbebw")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="BackTexture" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_i8h6y")
+expand_mode = 4
+
+[node name="BackgroundGradient" type="TextureRect" parent="Background"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_xbebw")
+expand_mode = 4
+
+[node name="Menu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -540.0
+offset_top = -272.0
+offset_right = 540.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 80
+text = "Menu"
+metadata/_edit_use_anchors_ = true
+
+[node name="Credits" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1080.0
+offset_bottom = 1099.0
+text = "Developer: Tim Davey (tdavey1818@gmail.com)
+
+Background: 
+'Flow abstract background' by anarres
+
+Music (In Order): 
+'Neocrey Rise' by  neocrey
+'Dino' by KLY - Kim Lightyear
+'Neon' by neocrey
+'Disco Century' by neocrey
+
+URLS:
+openclipart.org/detail/307655/flow-abstract-background
+opengameart.org/content/neocrey-rise
+opengameart.org/content/dino
+opengameart.org/content/neocrey-neon
+opengameart.org/content/neocrey-disco-century
+neocrey.bandcamp.com
+neocrey.com
+
+
+
+"
+label_settings = SubResource("LabelSettings_i8h6y")
+autowrap_mode = 1
+
+[connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]

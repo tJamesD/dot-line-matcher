@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dfm3j3otkpjrb"
+path="res://.godot/imported/Disco Century.mp3-ab5cf0e67199b96395c2c64040a7b3c9.mp3str"
+
+[deps]
+
+source_file="res://MUSIC/Disco Century.mp3"
+dest_files=["res://.godot/imported/Disco Century.mp3-ab5cf0e67199b96395c2c64040a7b3c9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

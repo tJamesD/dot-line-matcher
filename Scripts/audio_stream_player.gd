@@ -15,10 +15,10 @@ func _ready():
 #}
 
 var tracks_array=[
-	preload("res://MUSIC/Rise.wav"),
-	preload("res://MUSIC/kim_lightyear_-_dino_instrumental.wav"),
+	preload("res://MUSIC/Rise.mp3"),
+	preload("res://MUSIC/kim_lightyear_-_dino_instrumental.mp3"),
 	preload("res://MUSIC/neocrey - NEON.mp3"),
-	preload("res://MUSIC/Disco Century.wav")]
+	preload("res://MUSIC/Disco Century.mp3")]
 
 var current_index = 0
 

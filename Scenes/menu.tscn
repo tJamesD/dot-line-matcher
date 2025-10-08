@@ -58,30 +58,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -542.0
-offset_top = -8.0
-offset_right = 540.0
-offset_bottom = 234.0
+offset_left = -540.0
+offset_top = -250.0
+offset_right = 542.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 125
 text = "Play"
-
-[node name="Settings" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -542.0
-offset_top = 234.0
-offset_right = 540.0
-offset_bottom = 476.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 125
-text = "Settings"
 
 [node name="High Scores" type="Button" parent="."]
 layout_mode = 1
@@ -90,14 +74,47 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -542.0
-offset_top = 476.0
-offset_right = 540.0
-offset_bottom = 718.0
+offset_left = -540.0
+offset_top = -8.0
+offset_right = 542.0
+offset_bottom = 234.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 125
 text = "High Scores"
+
+[node name="Settings" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = 234.0
+offset_right = 542.0
+offset_bottom = 476.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 125
+text = "Settings"
+
+[node name="Credits" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = 476.0
+offset_right = 542.0
+offset_bottom = 718.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 125
+text = "Credits
+"
 
 [node name="Quit" type="Button" parent="."]
 layout_mode = 1
@@ -106,9 +123,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -542.0
+offset_left = -540.0
 offset_top = 718.0
-offset_right = 540.0
+offset_right = 542.0
 offset_bottom = 960.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -116,15 +133,15 @@ theme_override_font_sizes/font_size = 125
 text = "Quit
 "
 
-[node name="Label" type="Label" parent="."]
+[node name="Dot Swiper" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -393.0
-offset_top = 547.0
+offset_top = 305.0
 offset_right = 398.0
-offset_bottom = 752.0
+offset_bottom = 510.0
 grow_horizontal = 2
 text = "Dot Swiper"
 label_settings = SubResource("LabelSettings_xhh6f")
@@ -132,6 +149,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="High Scores" to="." method="_on_high_scores_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
