@@ -1,0 +1,21 @@
+
+·
+9
+android*http://schemas.android.com/apk/res/android
+7
+dist+http://schemas.android.com/apk/distributionmanifest")packagecom.davey.timit.dotlinematcher"splitassetPackInstallTime"R
+*http://schemas.android.com/apk/res/androidcompileSdkVersion35"(òŠ„2:0#"(platformBuildVersionCode35"2:0#"P
+*http://schemas.android.com/apk/res/androidcompileSdkVersionCodename15(óŠ„"(platformBuildVersionName15"2:0*
+  Ä*Ù
+Ð+http://schemas.android.com/apk/distributionmodule"?
++http://schemas.android.com/apk/distributiontype
+asset-pack*
+    &*…
+}+http://schemas.android.com/apk/distributionfusing"F
++http://schemas.android.com/apk/distributionincludetrue"2:@*    '*¥
+œ+http://schemas.android.com/apk/distributiondelivery*
+      :*C
+;+http://schemas.android.com/apk/distributioninstall-time*
+    +*
+  *	
+
